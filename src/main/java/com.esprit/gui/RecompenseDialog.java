@@ -22,10 +22,11 @@ public class RecompenseDialog extends JDialog {
         this.service = service;
 
         setTitle(recompense == null ? "Ajouter Récompense" : "Modifier Récompense");
-        setSize(400, 400);
-        setLayout(new GridLayout(7,2,10,10));
+        setSize(450, 420);
         setLocationRelativeTo(parent);
+        setLayout(new GridLayout(7, 2, 10, 10));
 
+        // ================= UI =================
         add(new JLabel("Type"));
         typeField = new JTextField();
         add(typeField);
@@ -35,8 +36,8 @@ public class RecompenseDialog extends JDialog {
         add(valeurField);
 
         add(new JLabel("Description"));
-        descArea = new JTextArea();
-        add(descArea);
+        descArea = new JTextArea(3, 20);
+        add(new JScrollPane(descArea));
 
         add(new JLabel("Seuil"));
         seuilField = new JTextField();
@@ -51,11 +52,12 @@ public class RecompenseDialog extends JDialog {
         add(factureField);
 
         JButton saveBtn = new JButton("Enregistrer");
-        add(saveBtn);
-
         JButton cancelBtn = new JButton("Annuler");
+
+        add(saveBtn);
         add(cancelBtn);
 
+        // ================= PREFILL =================
         if (recompense != null) {
             typeField.setText(recompense.getType());
             valeurField.setText(String.valueOf(recompense.getValeur()));
@@ -65,35 +67,46 @@ public class RecompenseDialog extends JDialog {
             factureField.setText(String.valueOf(recompense.getIdFacture()));
         }
 
+        // ================= ACTIONS =================
         saveBtn.addActionListener(e -> saveRecompense());
         cancelBtn.addActionListener(e -> dispose());
     }
 
+    // ================= SAVE =================
     private void saveRecompense() {
         try {
             String type = typeField.getText();
-            double val = Double.parseDouble(valeurField.getText());
+            double valeur = Double.parseDouble(valeurField.getText());
             String desc = descArea.getText();
             int seuil = Integer.parseInt(seuilField.getText());
             int livreur = Integer.parseInt(livreurField.getText());
             int facture = Integer.parseInt(factureField.getText());
 
+            if (type.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Type obligatoire !");
+                return;
+            }
+
             if (recompense == null) {
-                service.ajouter(new Recompense(type, val, desc, seuil, new Date(), livreur, facture));
+                service.ajouter(new Recompense(
+                        type, valeur, desc, seuil, new Date(), livreur, facture
+                ));
             } else {
                 recompense.setType(type);
-                recompense.setValeur(val);
+                recompense.setValeur(valeur);
                 recompense.setDescription(desc);
                 recompense.setSeuil(seuil);
                 recompense.setIdLivreur(livreur);
                 recompense.setIdFacture(facture);
+
                 service.modifier(recompense);
             }
 
             dispose();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erreur !");
+            JOptionPane.showMessageDialog(this,
+                    "Erreur : vérifiez les champs numériques !");
         }
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
 
 public class FactureGUI extends JFrame {
 
-    private FactureService factureService;
-    private RecompenseService recompenseService;
+    private final FactureService factureService = new FactureService();
+    private final RecompenseService recompenseService = new RecompenseService();
 
     private JTable factureTable;
     private JTable recompenseTable;
@@ -22,81 +22,94 @@ public class FactureGUI extends JFrame {
     private DefaultTableModel recompenseModel;
 
     public FactureGUI() {
-        factureService = new FactureService();
-        recompenseService = new RecompenseService();
 
         setTitle("Gestion Factures & Récompenses");
-        setSize(900, 600);
+        setSize(950, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Onglets pour Factures et Récompenses
         JTabbedPane tabs = new JTabbedPane();
 
-        // ----- Onglet Factures -----
+        // ================= FACTURES =================
         JPanel facturePanel = new JPanel(new BorderLayout());
-        factureModel = new DefaultTableModel(new String[]{"ID", "Numéro", "Date", "MontantHT", "MontantTTC", "TVA", "Statut", "Livraison ID"}, 0);
+
+        factureModel = new DefaultTableModel(
+                new String[]{"ID", "Numéro", "Date", "HT", "TTC", "TVA", "Statut", "Livraison"}, 0);
+
         factureTable = new JTable(factureModel);
         factureTable.setRowHeight(25);
+
         facturePanel.add(new JScrollPane(factureTable), BorderLayout.CENTER);
 
-        JPanel factureButtons = new JPanel();
-        JButton addFactureBtn = new JButton("Ajouter");
-        JButton editFactureBtn = new JButton("Modifier");
-        JButton deleteFactureBtn = new JButton("Supprimer");
-        JButton refreshFactureBtn = new JButton("Actualiser");
-        factureButtons.add(addFactureBtn);
-        factureButtons.add(editFactureBtn);
-        factureButtons.add(deleteFactureBtn);
-        factureButtons.add(refreshFactureBtn);
-        facturePanel.add(factureButtons, BorderLayout.SOUTH);
+        JPanel btnF = new JPanel();
+
+        JButton addF = new JButton("Ajouter");
+        JButton editF = new JButton("Modifier");
+        JButton delF = new JButton("Supprimer");
+        JButton refreshF = new JButton("Actualiser");
+
+        btnF.add(addF);
+        btnF.add(editF);
+        btnF.add(delF);
+        btnF.add(refreshF);
+
+        facturePanel.add(btnF, BorderLayout.SOUTH);
 
         tabs.addTab("Factures", facturePanel);
 
-        // ----- Onglet Récompenses -----
-        JPanel recompensePanel = new JPanel(new BorderLayout());
-        recompenseModel = new DefaultTableModel(new String[]{"ID", "Type", "Valeur", "Description", "Seuil", "Date", "Livreur ID", "Facture ID"}, 0);
+        // ================= RECOMPENSES =================
+        JPanel recompPanel = new JPanel(new BorderLayout());
+
+        recompenseModel = new DefaultTableModel(
+                new String[]{"ID", "Type", "Valeur", "Description", "Seuil", "Date", "Livreur", "Facture"}, 0);
+
         recompenseTable = new JTable(recompenseModel);
         recompenseTable.setRowHeight(25);
-        recompensePanel.add(new JScrollPane(recompenseTable), BorderLayout.CENTER);
 
-        JPanel recompenseButtons = new JPanel();
-        JButton addRecompBtn = new JButton("Ajouter");
-        JButton editRecompBtn = new JButton("Modifier");
-        JButton deleteRecompBtn = new JButton("Supprimer");
-        JButton refreshRecompBtn = new JButton("Actualiser");
-        recompenseButtons.add(addRecompBtn);
-        recompenseButtons.add(editRecompBtn);
-        recompenseButtons.add(deleteRecompBtn);
-        recompenseButtons.add(refreshRecompBtn);
-        recompensePanel.add(recompenseButtons, BorderLayout.SOUTH);
+        recompPanel.add(new JScrollPane(recompenseTable), BorderLayout.CENTER);
 
-        tabs.addTab("Récompenses", recompensePanel);
+        JPanel btnR = new JPanel();
+
+        JButton addR = new JButton("Ajouter");
+        JButton editR = new JButton("Modifier");
+        JButton delR = new JButton("Supprimer");
+        JButton refreshR = new JButton("Actualiser");
+
+        btnR.add(addR);
+        btnR.add(editR);
+        btnR.add(delR);
+        btnR.add(refreshR);
+
+        recompPanel.add(btnR, BorderLayout.SOUTH);
+
+        tabs.addTab("Récompenses", recompPanel);
 
         add(tabs);
 
-        // ----- Action Listeners -----
-        refreshFactureBtn.addActionListener(e -> loadFactures());
-        refreshRecompBtn.addActionListener(e -> loadRecompenses());
+        // ================= ACTIONS =================
 
-        addFactureBtn.addActionListener(e -> openFactureDialog(null));
-        editFactureBtn.addActionListener(e -> editSelectedFacture());
-        deleteFactureBtn.addActionListener(e -> deleteSelectedFacture());
+        refreshF.addActionListener(e -> loadFactures());
+        refreshR.addActionListener(e -> loadRecompenses());
 
-        addRecompBtn.addActionListener(e -> openRecompenseDialog(null));
-        editRecompBtn.addActionListener(e -> editSelectedRecompense());
-        deleteRecompBtn.addActionListener(e -> deleteSelectedRecompense());
+        addF.addActionListener(e -> openFactureDialog(null));
+        editF.addActionListener(e -> editFacture());
+        delF.addActionListener(e -> deleteFacture());
 
-        // Charger les données au démarrage
+        addR.addActionListener(e -> openRecompenseDialog(null));
+        editR.addActionListener(e -> editRecompense());
+        delR.addActionListener(e -> deleteRecompense());
+
         loadFactures();
         loadRecompenses();
     }
 
-    // -------------------- FACTURES --------------------
+    // ================= FACTURES =================
     private void loadFactures() {
         factureModel.setRowCount(0);
-        List<Facture> factures = factureService.afficherTous();
-        for (Facture f : factures) {
+
+        List<Facture> list = factureService.afficherTous();
+
+        for (Facture f : list) {
             factureModel.addRow(new Object[]{
                     f.getIdFacture(),
                     f.getNumero(),
@@ -116,29 +129,39 @@ public class FactureGUI extends JFrame {
         loadFactures();
     }
 
-    private void editSelectedFacture() {
+    private void editFacture() {
         int row = factureTable.getSelectedRow();
-        if (row >= 0) {
-            int id = (int) factureModel.getValueAt(row, 0);
-            Facture f = factureService.rechercherParId(id);
-            openFactureDialog(f);
-        } else JOptionPane.showMessageDialog(this, "Sélectionnez une facture à modifier !");
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Sélectionnez une facture");
+            return;
+        }
+
+        int id = (int) factureModel.getValueAt(row, 0);
+        Facture f = factureService.rechercherParId(id);
+
+        openFactureDialog(f);
     }
 
-    private void deleteSelectedFacture() {
+    private void deleteFacture() {
         int row = factureTable.getSelectedRow();
-        if (row >= 0) {
-            int id = (int) factureModel.getValueAt(row, 0);
-            factureService.supprimer(id);
-            loadFactures();
-        } else JOptionPane.showMessageDialog(this, "Sélectionnez une facture à supprimer !");
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Sélectionnez une facture");
+            return;
+        }
+
+        int id = (int) factureModel.getValueAt(row, 0);
+        factureService.supprimer(id);
+
+        loadFactures();
     }
 
-    // -------------------- RECOMPENSES --------------------
+    // ================= RECOMPENSES =================
     private void loadRecompenses() {
         recompenseModel.setRowCount(0);
-        List<Recompense> recompenses = recompenseService.afficherTous();
-        for (Recompense r : recompenses) {
+
+        List<Recompense> list = recompenseService.afficherTous();
+
+        for (Recompense r : list) {
             recompenseModel.addRow(new Object[]{
                     r.getIdRecompense(),
                     r.getType(),
@@ -153,30 +176,38 @@ public class FactureGUI extends JFrame {
     }
 
     private void openRecompenseDialog(Recompense r) {
-        RecompenseDialog dialog = new RecompenseDialog(this, r, recompenseService);
-        dialog.setVisible(true);
+
+        RecompenseDialog dialog = new RecompenseDialog((Frame) this, r, recompenseService);        dialog.setVisible(true);
         loadRecompenses();
     }
 
-    private void editSelectedRecompense() {
+    private void editRecompense() {
         int row = recompenseTable.getSelectedRow();
-        if (row >= 0) {
-            int id = (int) recompenseModel.getValueAt(row, 0);
-            Recompense r = recompenseService.rechercherParId(id);
-            openRecompenseDialog(r);
-        } else JOptionPane.showMessageDialog(this, "Sélectionnez une récompense à modifier !");
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Sélectionnez une récompense");
+            return;
+        }
+
+        int id = (int) recompenseModel.getValueAt(row, 0);
+        Recompense r = recompenseService.rechercherParId(id);
+
+        openRecompenseDialog(r);
     }
 
-    private void deleteSelectedRecompense() {
+    private void deleteRecompense() {
         int row = recompenseTable.getSelectedRow();
-        if (row >= 0) {
-            int id = (int) recompenseModel.getValueAt(row, 0);
-            recompenseService.supprimer(id);
-            loadRecompenses();
-        } else JOptionPane.showMessageDialog(this, "Sélectionnez une récompense à supprimer !");
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Sélectionnez une récompense");
+            return;
+        }
+
+        int id = (int) recompenseModel.getValueAt(row, 0);
+        recompenseService.supprimer(id);
+
+        loadRecompenses();
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new com.esprit.gui.FactureGUI().setVisible(true));
+        SwingUtilities.invokeLater(() -> new FactureGUI().setVisible(true));
     }
 }

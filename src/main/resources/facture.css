@@ -1,0 +1,102 @@
+.root {
+    -fx-background-color: #f5f7fb;
+    -fx-font-family: "Segoe UI";
+}
+
+/* TOP MENU BAR */
+.menu-bar {
+    -fx-background-color: #0f172a;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
+/* MAIN FORM AREA */
+.anchor-pane {
+    -fx-background-color: #f5f7fb;
+}
+
+/* LABELS */
+.label {
+    -fx-text-fill: #1f2937;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* TEXT FIELDS */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.2), 6, 0, 0, 2);
+}
+
+/* COMBOBOX */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* BUTTONS */
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 8 15 8 15;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+/* SECONDARY BUTTONS */
+#ouvrirTableView,
+#modifierBtn,
+#supprimerBtn {
+    -fx-background-color: #374151;
+}
+
+#ouvrirTableView:hover,
+#modifierBtn:hover,
+#supprimerBtn:hover {
+    -fx-background-color: #111827;
+}
+
+/* MESSAGE LABEL */
+#messageLabel {
+    -fx-text-fill: #dc2626;
+    -fx-font-weight: bold;
+}
+
+/* CARD STYLE (NEW 🔥) */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 15, 0, 0, 5);
+}
+
+/* VALIDATION STATES (NEW 🔥) */
+.text-field-error {
+    -fx-border-color: #ef4444;
+    -fx-background-color: #fef2f2;
+}
+
+.text-field-success {
+    -fx-border-color: #22c55e;
+    -fx-background-color: #f0fdf4;
+}

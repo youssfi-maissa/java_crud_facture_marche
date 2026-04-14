@@ -8,7 +8,9 @@ import java.awt.*;
 
 public class FactureDialog extends JDialog {
 
-    private JTextField numeroField, htField, ttcField, tvaField, statutField, livraisonField;
+    private JTextField numeroField, htField, tvaField, statutField, livraisonField;
+    private JLabel ttcLabel;
+
     private Facture facture;
     private FactureService service;
 
@@ -19,25 +21,26 @@ public class FactureDialog extends JDialog {
         this.service = service;
 
         setTitle(facture == null ? "Ajouter Facture" : "Modifier Facture");
-        setSize(400, 300);
-        setLayout(new GridLayout(7,2,10,10));
+        setSize(420, 320);
         setLocationRelativeTo(parent);
+        setLayout(new GridLayout(7, 2, 10, 10));
 
+        // ================= UI =================
         add(new JLabel("Numéro"));
         numeroField = new JTextField();
         add(numeroField);
 
-        add(new JLabel("HT"));
+        add(new JLabel("Montant HT"));
         htField = new JTextField();
         add(htField);
 
-        add(new JLabel("TTC"));
-        ttcField = new JTextField();
-        add(ttcField);
-
-        add(new JLabel("TVA"));
+        add(new JLabel("TVA (%)"));
         tvaField = new JTextField();
         add(tvaField);
+
+        add(new JLabel("Montant TTC"));
+        ttcLabel = new JLabel("0.0");
+        add(ttcLabel);
 
         add(new JLabel("Statut"));
         statutField = new JTextField();
@@ -48,32 +51,63 @@ public class FactureDialog extends JDialog {
         add(livraisonField);
 
         JButton saveBtn = new JButton("Enregistrer");
-        add(saveBtn);
-
         JButton cancelBtn = new JButton("Annuler");
+
+        add(saveBtn);
         add(cancelBtn);
 
+        // ================= PREFILL =================
         if (facture != null) {
             numeroField.setText(facture.getNumero());
             htField.setText(String.valueOf(facture.getMontantHT()));
-            ttcField.setText(String.valueOf(facture.getMontantTTC()));
             tvaField.setText(String.valueOf(facture.getTva()));
             statutField.setText(facture.getStatut());
             livraisonField.setText(String.valueOf(facture.getIdLivraison()));
+
+            updateTTC();
         }
+
+        // ================= EVENTS =================
+        htField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                updateTTC();
+            }
+        });
+
+        tvaField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                updateTTC();
+            }
+        });
 
         saveBtn.addActionListener(e -> saveFacture());
         cancelBtn.addActionListener(e -> dispose());
     }
 
+    // ================= CALCUL TTC =================
+    private void updateTTC() {
+        try {
+            float ht = Float.parseFloat(htField.getText());
+            float tva = Float.parseFloat(tvaField.getText());
+
+            float ttc = ht + (ht * tva / 100);
+            ttcLabel.setText(String.format("%.2f", ttc));
+
+        } catch (Exception ignored) {
+            ttcLabel.setText("0.0");
+        }
+    }
+
+    // ================= SAVE =================
     private void saveFacture() {
         try {
             String num = numeroField.getText();
             float ht = Float.parseFloat(htField.getText());
-            float ttc = Float.parseFloat(ttcField.getText());
             float tva = Float.parseFloat(tvaField.getText());
             String statut = statutField.getText();
             int idLiv = Integer.parseInt(livraisonField.getText());
+
+            float ttc = ht + (ht * tva / 100);
 
             if (facture == null) {
                 service.ajouter(new Facture(num, ht, ttc, tva, statut, idLiv));
@@ -84,13 +118,15 @@ public class FactureDialog extends JDialog {
                 facture.setTva(tva);
                 facture.setStatut(statut);
                 facture.setIdLivraison(idLiv);
+
                 service.modifier(facture);
             }
 
             dispose();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erreur !");
+            JOptionPane.showMessageDialog(this,
+                    "Erreur : vérifiez les champs numériques !");
         }
     }
 }
