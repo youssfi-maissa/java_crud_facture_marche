@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.esprit.controllers.RecompenseStatsController"
+      style="-fx-padding:20;">
+
+    <!-- ✅ TITRE -->
+    <Label text="Statistiques des Récompenses"
+           style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+
+    <!-- ✅ GRAPHIQUE -->
+    <BarChart fx:id="barChart" prefHeight="400">
+
+        <xAxis>
+            <CategoryAxis label="Livreurs"/>
+        </xAxis>
+
+        <yAxis>
+            <NumberAxis label="Nombre de récompenses"/>
+        </yAxis>
+
+    </BarChart>
+
+</VBox>

@@ -11,17 +11,22 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Menu principal avec boutons pour chaque module
+
         VBox menu = new VBox(20);
         menu.setStyle("-fx-padding: 50; -fx-alignment: center;");
 
         Button facturesBtn = new Button("Gestion Factures");
         Button recompensesBtn = new Button("Gestion Récompenses");
 
-        // Action pour ouvrir Factures
+        // ⭐ NOUVEAU BOUTON STAT
+        Button statsBtn = new Button("Statistiques Récompenses");
+
+        // ================= FACTURES =================
         facturesBtn.setOnAction(e -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/facture-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/esprit/facture-view.fxml")
+                );
                 Scene scene = new Scene(loader.load());
                 Stage moduleStage = new Stage();
                 moduleStage.setTitle("Gestion Factures");
@@ -32,10 +37,12 @@ public class MainApp extends Application {
             }
         });
 
-        // Action pour ouvrir Récompenses
+        // ================= RECOMPENSES =================
         recompensesBtn.setOnAction(e -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/recompense-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/esprit/recompense-view.fxml")
+                );
                 Scene scene = new Scene(loader.load());
                 Stage moduleStage = new Stage();
                 moduleStage.setTitle("Gestion Récompenses");
@@ -46,9 +53,26 @@ public class MainApp extends Application {
             }
         });
 
-        menu.getChildren().addAll(facturesBtn, recompensesBtn);
+        // ================= STATISTIQUES =================
+        statsBtn.setOnAction(e -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/esprit/recompense-stats.fxml")
+                );
+                Scene scene = new Scene(loader.load());
+                Stage moduleStage = new Stage();
+                moduleStage.setTitle("Statistiques Récompenses");
+                moduleStage.setScene(scene);
+                moduleStage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        Scene scene = new Scene(menu, 300, 200);
+        // ⭐ AJOUT DU BOUTON
+        menu.getChildren().addAll(facturesBtn, recompensesBtn, statsBtn);
+
+        Scene scene = new Scene(menu, 300, 250);
         stage.setTitle("Menu Principal");
         stage.setScene(scene);
         stage.show();
