@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.controllers.FactureController"
+      stylesheets="@/facture.css">
+
+    <Label text="Gestion des Factures"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15;"/>
+
+    <!-- CARD -->
+    <VBox spacing="12"
+          styleClass="card"
+          prefWidth="450"
+          style="-fx-padding: 20;">
+
+        <Label text="Ajouter Facture"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <!-- NUMERO + GENERATE -->
+        <HBox spacing="10">
+            <TextField fx:id="numeroField"
+                       promptText="FAC-2026-001"
+                       prefWidth="200"/>
+
+            <Button text="Générer"
+                    onAction="#genererNumeroFacture"/>
+        </HBox>
+
+        <TextField fx:id="montantHTField" promptText="Montant HT"/>
+        <TextField fx:id="tvaField" promptText="TVA %"/>
+
+        <TextField fx:id="montantTTCField"
+                   promptText="TTC calculé"
+                   editable="false"
+                   mouseTransparent="true"
+                   style="-fx-background-color: #e5e7eb;"/>
+
+        <ComboBox fx:id="statutCombo" promptText="Statut"/>
+        <ComboBox fx:id="cbLivraison" promptText="Livraison"/>
+
+        <!-- BUTTONS -->
+        <Button text="Ajouter Facture"
+                onAction="#ajouterFacture"
+                style="-fx-background-color: #2563eb; -fx-text-fill: white;"/>
+
+        <Button text="Afficher Factures"
+                onAction="#ouvrirTableView"
+                style="-fx-background-color: #374151; -fx-text-fill: white;"/>
+
+    </VBox>
+
+    <Label fx:id="messageLabel"
+           style="-fx-padding: 10; -fx-text-fill: green;"/>
+
+</VBox>

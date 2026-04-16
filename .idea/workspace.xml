@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="518b2ab7-35a7-4756-b9a2-0c0e3d64307f" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3BzSaS3aJUWg7uvGKYkcTJRK1Sq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FactureGUI.executor": "Run",
+    "Application.FactureRecompenseGUI.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.MainApp.executor": "Run",
+    "JUnit.FactureServiceTest.executor": "Run",
+    "JUnit.RecompenseServiceTest.executor": "Run",
+    "JUnit.RecompenseServiceTest.testAjouter.executor": "Run",
+    "JUnit.RecompenseServiceTest.testModifier.executor": "Run",
+    "JUnit.RecompenseServiceTest.testRechercherParId.executor": "Run",
+    "JUnit.RecompenseServiceTest.testSupprimer.executor": "Run",
+    "Maven.final_prjct [clean].executor": "Run",
+    "Maven.final_prjct [install].executor": "Run",
+    "Maven.final_prjct [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "facture__recompense",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/maissa/IdeaProjects/final_prjct/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3483965",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.esprit.services" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.FactureServiceTest">
+    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.esprit.MainApp" />
+      <module name="final_prjct" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.esprit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FactureServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final_prjct" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.esprit.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.esprit.services" />
+      <option name="MAIN_CLASS_NAME" value="com.esprit.services.FactureServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecompenseServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final_prjct" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.esprit.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.esprit.services" />
+      <option name="MAIN_CLASS_NAME" value="com.esprit.services.RecompenseServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecompenseServiceTest.testModifier" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final_prjct" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.esprit.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.esprit.services" />
+      <option name="MAIN_CLASS_NAME" value="com.esprit.services.RecompenseServiceTest" />
+      <option name="METHOD_NAME" value="testModifier" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecompenseServiceTest.testRechercherParId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final_prjct" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.esprit.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.esprit.services" />
+      <option name="MAIN_CLASS_NAME" value="com.esprit.services.RecompenseServiceTest" />
+      <option name="METHOD_NAME" value="testRechercherParId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.MainApp" />
+      <item itemvalue="JUnit.FactureServiceTest" />
+      <item itemvalue="JUnit.RecompenseServiceTest" />
+      <item itemvalue="JUnit.RecompenseServiceTest.testModifier" />
+      <item itemvalue="JUnit.RecompenseServiceTest.testRechercherParId" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.FactureServiceTest" />
+        <item itemvalue="JUnit.RecompenseServiceTest" />
+        <item itemvalue="Application.MainApp" />
+        <item itemvalue="JUnit.RecompenseServiceTest.testRechercherParId" />
+        <item itemvalue="JUnit.RecompenseServiceTest.testModifier" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="518b2ab7-35a7-4756-b9a2-0c0e3d64307f" name="Changes" comment="" />
+      <created>1775490472425</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775490472425</updated>
+      <workItem from="1775490473913" duration="10796000" />
+      <workItem from="1775501963961" duration="26000" />
+      <workItem from="1775502074876" duration="13285000" />
+      <workItem from="1775730160336" duration="6076000" />
+      <workItem from="1775738125259" duration="36662000" />
+      <workItem from="1776094933842" duration="3587000" />
+      <workItem from="1776102409829" duration="1920000" />
+      <workItem from="1776118403558" duration="2930000" />
+      <workItem from="1776121403866" duration="8098000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
