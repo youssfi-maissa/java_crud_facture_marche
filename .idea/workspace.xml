@@ -7,6 +7,9 @@
     <list default="true" id="518b2ab7-35a7-4756-b9a2-0c0e3d64307f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/MainApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/MainApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,11 +184,22 @@
       <workItem from="1776094933842" duration="3587000" />
       <workItem from="1776102409829" duration="1920000" />
       <workItem from="1776118403558" duration="2930000" />
-      <workItem from="1776121403866" duration="23864000" />
+      <workItem from="1776121403866" duration="25610000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com.esprit/MainApp.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

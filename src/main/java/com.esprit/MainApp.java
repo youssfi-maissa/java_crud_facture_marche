@@ -18,8 +18,11 @@ public class MainApp extends Application {
         Button facturesBtn = new Button("Gestion Factures");
         Button recompensesBtn = new Button("Gestion Récompenses");
 
-        // ⭐ NOUVEAU BOUTON STAT
-        Button statsBtn = new Button("Statistiques Récompenses");
+        // ⭐ STAT RECOMPENSE
+        Button statsRecompenseBtn = new Button("Statistiques Récompenses");
+
+        // ⭐ NEW : STAT FACTURES
+        Button statsFactureBtn = new Button("Statistiques Factures");
 
         // ================= FACTURES =================
         facturesBtn.setOnAction(e -> {
@@ -53,8 +56,8 @@ public class MainApp extends Application {
             }
         });
 
-        // ================= STATISTIQUES =================
-        statsBtn.setOnAction(e -> {
+        // ================= STAT RECOMPENSE =================
+        statsRecompenseBtn.setOnAction(e -> {
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("/com/esprit/recompense-stats.fxml")
@@ -69,10 +72,31 @@ public class MainApp extends Application {
             }
         });
 
-        // ⭐ AJOUT DU BOUTON
-        menu.getChildren().addAll(facturesBtn, recompensesBtn, statsBtn);
+        // ================= ⭐ STAT FACTURE =================
+        statsFactureBtn.setOnAction(e -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/esprit/facture-stats.fxml")
+                );
+                Scene scene = new Scene(loader.load());
+                Stage moduleStage = new Stage();
+                moduleStage.setTitle("Statistiques Factures");
+                moduleStage.setScene(scene);
+                moduleStage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        Scene scene = new Scene(menu, 300, 250);
+        // ⭐ AJOUT DES BOUTONS
+        menu.getChildren().addAll(
+                facturesBtn,
+                recompensesBtn,
+                statsRecompenseBtn,
+                statsFactureBtn
+        );
+
+        Scene scene = new Scene(menu, 300, 300);
         stage.setTitle("Menu Principal");
         stage.setScene(scene);
         stage.show();

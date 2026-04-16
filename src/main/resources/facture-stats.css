@@ -1,0 +1,41 @@
+.root {
+    -fx-background-color: #f8fafc;
+    -fx-font-family: "Segoe UI";
+}
+
+/* TITRE */
+.label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+/* LINE CHART CONTAINER */
+.chart {
+    -fx-background-color: white;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 3);
+}
+
+/* LIGNE DU GRAPHE */
+.chart-series-line {
+    -fx-stroke: #2563eb;
+    -fx-stroke-width: 3px;
+}
+
+/* POINTS (désactivés mais sécurité) */
+.chart-line-symbol {
+    -fx-background-color: transparent;
+}
+
+/* AXES */
+.axis {
+    -fx-tick-label-fill: #475569;
+}
+
+.axis-label {
+    -fx-text-fill: #0f172a;
+    -fx-font-weight: bold;
+}
