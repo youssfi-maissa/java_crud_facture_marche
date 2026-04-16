@@ -21,10 +21,12 @@ public class FactureController {
     @FXML private TextField numeroField, montantHTField, montantTTCField, tvaField;
     @FXML private ComboBox<String> statutCombo;
     @FXML private ComboBox<Integer> cbLivraison;
-    @FXML private Label messageLabel;
 
     private static final String PATTERN = "^FAC-\\d{4}-\\d{3}$";
 
+    // =====================================================
+    // INIT
+    // =====================================================
     @FXML
     public void initialize() {
 
@@ -41,7 +43,18 @@ public class FactureController {
     }
 
     // =====================================================
-    // GENERATE NUMBER
+    // ALERT SYSTEM
+    // =====================================================
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // =====================================================
+    // GENERER NUMERO
     // =====================================================
     @FXML
     private void genererNumeroFacture() {
@@ -67,13 +80,20 @@ public class FactureController {
             String newNumero = String.format("FAC-%s-%03d", year, next);
 
             numeroField.setText(newNumero);
-            messageLabel.setText("Numéro généré ✔");
+
+            showAlert(Alert.AlertType.INFORMATION,
+                    "Succès",
+                    "Numéro généré avec succès ✔");
 
         } catch (Exception e) {
-            messageLabel.setText("Erreur génération : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR,
+                    "Erreur",
+                    "Erreur génération : " + e.getMessage());
         }
     }
 
+    // =====================================================
+    // CALCUL TTC
     // =====================================================
     private void calculTTC() {
         try {
@@ -98,65 +118,76 @@ public class FactureController {
     }
 
     // =====================================================
+    // AJOUT FACTURE
+    // =====================================================
     @FXML
     private void ajouterFacture() {
+
+        clearAllErrors();
+
+        boolean hasError = false;
+
+        String numero = numeroField.getText().trim();
+        String statut = statutCombo.getValue();
+        Integer idLivraison = cbLivraison.getValue();
+        String htText = montantHTField.getText().trim();
+        String tvaText = tvaField.getText().trim();
+
+        if (numero.isEmpty() || !numero.matches(PATTERN)) {
+            setError(numeroField, "Numéro invalide FAC-2026-001");
+            hasError = true;
+        }
+
+        if (htText.isEmpty()) {
+            setError(montantHTField, "Montant HT obligatoire");
+            hasError = true;
+        }
+
+        if (tvaText.isEmpty()) {
+            setError(tvaField, "TVA obligatoire");
+            hasError = true;
+        }
+
+        if (statut == null) {
+            setComboError(statutCombo);
+            hasError = true;
+        }
+
+        if (idLivraison == null) {
+            setComboError(cbLivraison);
+            hasError = true;
+        }
+
+        if (hasError) {
+            showAlert(Alert.AlertType.ERROR,
+                    "Formulaire invalide",
+                    "Veuillez corriger les champs en rouge.");
+            return;
+        }
+
         try {
-            String numero = numeroField.getText();
-            String statut = statutCombo.getValue();
-            Integer idLivraison = cbLivraison.getValue();
-
-            if (numero.isEmpty() || statut == null || idLivraison == null) {
-                messageLabel.setText("Veuillez remplir tous les champs !");
-                return;
-            }
-
-            if (!numero.matches(PATTERN)) {
-                messageLabel.setText("Format invalide FAC-2026-001");
-                return;
-            }
-
-            float ht = Float.parseFloat(montantHTField.getText().replace(',', '.'));
-            float tva = Float.parseFloat(tvaField.getText().replace(',', '.'));
-
-            if (ht <= 0 || tva <= 0) {
-                messageLabel.setText("Montants doivent être > 0");
-                return;
-            }
-
+            float ht = Float.parseFloat(htText.replace(',', '.'));
+            float tva = Float.parseFloat(tvaText.replace(',', '.'));
             float ttc = ht + (ht * tva / 100);
 
             Facture f = new Facture(numero, ht, ttc, tva, statut, idLivraison);
-
             factureService.ajouter(f);
 
-            messageLabel.setText("Facture ajoutée ✔");
+            showAlert(Alert.AlertType.INFORMATION,
+                    "Succès",
+                    "Facture ajoutée avec succès ✔");
 
-            numeroField.clear();
-            montantHTField.clear();
-            tvaField.clear();
-            montantTTCField.clear();
+            clearForm();
 
         } catch (Exception e) {
-            messageLabel.setText("Erreur : " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR,
+                    "Erreur",
+                    e.getMessage());
         }
     }
 
     // =====================================================
-    private void chargerLivraisons() {
-        try {
-            Connection cnx = MyDataBase.getInstance().getConnection();
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery("SELECT ID_Livraison FROM livraisons");
-
-            while (rs.next()) {
-                cbLivraison.getItems().add(rs.getInt("ID_Livraison"));
-            }
-
-        } catch (SQLException e) {
-            messageLabel.setText("Erreur livraisons : " + e.getMessage());
-        }
-    }
-
+    // TABLE VIEW
     // =====================================================
     @FXML
     private void ouvrirTableView() {
@@ -170,14 +201,60 @@ public class FactureController {
             stage.setTitle("Liste des Factures");
             stage.show();
 
-            // ❌ AUCUN message ici
-
         } catch (IOException e) {
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,
+                    "Erreur",
+                    "Erreur ouverture table view");
+        }
+    }
 
-            // seulement en cas d'erreur
-            messageLabel.setText("❌ Erreur ouverture table view");
-            messageLabel.setStyle("-fx-text-fill: red;");
+    // =====================================================
+    // HELPERS UI
+    // =====================================================
+    private void setError(TextField field, String msg) {
+        field.getStyleClass().add("text-field-error");
+        field.setTooltip(new Tooltip(msg));
+    }
+
+    private void setComboError(ComboBox<?> combo) {
+        combo.setStyle("-fx-border-color: #ef4444; -fx-background-color: #fef2f2;");
+    }
+
+    private void clearAllErrors() {
+        numeroField.getStyleClass().removeAll("text-field-error");
+        montantHTField.getStyleClass().removeAll("text-field-error");
+        tvaField.getStyleClass().removeAll("text-field-error");
+
+        statutCombo.setStyle("");
+        cbLivraison.setStyle("");
+    }
+
+    private void clearForm() {
+        numeroField.clear();
+        montantHTField.clear();
+        tvaField.clear();
+        montantTTCField.clear();
+        statutCombo.setValue(null);
+        cbLivraison.setValue(null);
+    }
+
+    // =====================================================
+    // LIVRAISONS
+    // =====================================================
+    private void chargerLivraisons() {
+        try {
+            Connection cnx = MyDataBase.getInstance().getConnection();
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery("SELECT ID_Livraison FROM livraisons");
+
+            while (rs.next()) {
+                cbLivraison.getItems().add(rs.getInt("ID_Livraison"));
+            }
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR,
+                    "Erreur",
+                    "Erreur chargement livraisons");
         }
     }
 }

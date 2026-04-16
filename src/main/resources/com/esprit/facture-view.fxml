@@ -8,28 +8,30 @@
       fx:controller="com.esprit.controllers.FactureController"
       stylesheets="@/facture.css">
 
+    <!-- =====================================================
+         TITLE
+    ===================================================== -->
     <Label text="Gestion des Factures"
            style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15;"/>
 
-    <!-- CARD -->
-    <VBox spacing="12"
-          styleClass="card"
-          prefWidth="450"
-          style="-fx-padding: 20;">
+    <!-- =====================================================
+         FORM CARD
+    ===================================================== -->
+    <VBox spacing="12" styleClass="card" prefWidth="450">
 
         <Label text="Ajouter Facture"
                style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
-        <!-- NUMERO + GENERATE -->
+        <!-- NUMERO -->
         <HBox spacing="10">
             <TextField fx:id="numeroField"
                        promptText="FAC-2026-001"
-                       prefWidth="200"/>
-
+                       prefWidth="250"/>
             <Button text="Générer"
                     onAction="#genererNumeroFacture"/>
         </HBox>
 
+        <!-- MONTANTS -->
         <TextField fx:id="montantHTField" promptText="Montant HT"/>
         <TextField fx:id="tvaField" promptText="TVA %"/>
 
@@ -39,21 +41,17 @@
                    mouseTransparent="true"
                    style="-fx-background-color: #e5e7eb;"/>
 
+        <!-- COMBO -->
         <ComboBox fx:id="statutCombo" promptText="Statut"/>
         <ComboBox fx:id="cbLivraison" promptText="Livraison"/>
 
         <!-- BUTTONS -->
         <Button text="Ajouter Facture"
-                onAction="#ajouterFacture"
-                style="-fx-background-color: #2563eb; -fx-text-fill: white;"/>
+                onAction="#ajouterFacture"/>
 
         <Button text="Afficher Factures"
-                onAction="#ouvrirTableView"
-                style="-fx-background-color: #374151; -fx-text-fill: white;"/>
+                onAction="#ouvrirTableView"/>
 
     </VBox>
-
-    <Label fx:id="messageLabel"
-           style="-fx-padding: 10; -fx-text-fill: green;"/>
 
 </VBox>

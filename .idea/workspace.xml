@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="518b2ab7-35a7-4756-b9a2-0c0e3d64307f" name="Changes" comment="" />
+    <list default="true" id="518b2ab7-35a7-4756-b9a2-0c0e3d64307f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/facture.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/facture.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/recompense.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/recompense.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/RecompenseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/RecompenseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/facture-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/facture-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/facture.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/facture.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/recompense.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/recompense.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +62,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "facture__recompense",
+    "git-widget-placeholder": "facturebranche",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -178,7 +190,7 @@
       <workItem from="1776094933842" duration="3587000" />
       <workItem from="1776102409829" duration="1920000" />
       <workItem from="1776118403558" duration="2930000" />
-      <workItem from="1776121403866" duration="8098000" />
+      <workItem from="1776121403866" duration="18644000" />
     </task>
     <servers />
   </component>

@@ -82,3 +82,8 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
+.error-field {
+    -fx-border-color: #ef4444;
+    -fx-border-width: 2;
+    -fx-background-color: #fef2f2;
+}
