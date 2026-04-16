@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.esprit.controllers.RecompenseDialogController"
+      style="-fx-padding:20;">
+
+    <TextField fx:id="typeField" promptText="Type"/>
+    <TextField fx:id="valeurField" promptText="Valeur"/>
+    <TextField fx:id="descriptionField" promptText="Description"/>
+    <TextField fx:id="seuilField" promptText="Seuil"/>
+    <TextField fx:id="livreurField" promptText="ID Livreur"/>
+
+    <!-- ✅ COMBOBOX FACTURE (FINAL FIX) -->
+    <ComboBox fx:id="factureCombo"
+              prefWidth="250"
+              promptText="Choisir une facture"/>
+
+    <Button text="Enregistrer"
+            onAction="#enregistrer"/>
+
+</VBox>

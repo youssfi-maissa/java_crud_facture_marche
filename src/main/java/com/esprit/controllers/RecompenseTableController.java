@@ -4,274 +4,211 @@ import com.esprit.entities.Recompense;
 import com.esprit.services.RecompenseService;
 import com.esprit.utils.MyDataBase;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class RecompenseTableController {
 
-    @FXML private TableView<Recompense>            recompenseTable;
-    @FXML private TableColumn<Recompense, String>  typeColumn;
-    @FXML private TableColumn<Recompense, Double>  valeurColumn;
-    @FXML private TableColumn<Recompense, String>  descriptionColumn;
+    // ================= TABLE =================
+    @FXML private TableView<Recompense> recompenseTable;
+
+    @FXML private TableColumn<Recompense, String> typeColumn;
+    @FXML private TableColumn<Recompense, Double> valeurColumn;
+    @FXML private TableColumn<Recompense, String> descriptionColumn;
     @FXML private TableColumn<Recompense, Integer> seuilColumn;
-    @FXML private TableColumn<Recompense, String>  dateColumn;
-    @FXML private TableColumn<Recompense, String>  livreurColumn;
-    @FXML private TableColumn<Recompense, String>  factureColumn;
-    @FXML private Label                            messageLabel;
+    @FXML private TableColumn<Recompense, String> dateColumn;
+    @FXML private TableColumn<Recompense, String> livreurColumn;
+    @FXML private TableColumn<Recompense, String> factureColumn;
 
-    private final RecompenseService recompenseService = new RecompenseService();
+    @FXML private TableColumn<Recompense, Void> actionsColumn;
 
+    // ================= UI =================
+    @FXML private TextField searchField;   // ⭐ RECHERCHE EN HAUT
+    @FXML private Label messageLabel;
+
+    // ================= SERVICE =================
+    private final RecompenseService service = new RecompenseService();
+    private List<Recompense> allRecompenses;
+
+    // ================= INIT =================
     @FXML
     public void initialize() {
+
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         valeurColumn.setCellValueFactory(new PropertyValueFactory<>("valeur"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         seuilColumn.setCellValueFactory(new PropertyValueFactory<>("seuil"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateObtention"));
 
-        livreurColumn.setCellValueFactory(cellData -> {
-            int livreurId = cellData.getValue().getIdLivreur();
-            String nom = getNomLivreur(livreurId);
-            return new javafx.beans.property.SimpleStringProperty(nom);
-        });
+        dateColumn.setCellValueFactory(data ->
+                new javafx.beans.property.SimpleStringProperty(
+                        data.getValue().getDateObtention() != null
+                                ? data.getValue().getDateObtention().toString()
+                                : "-"
+                )
+        );
 
-        factureColumn.setCellValueFactory(cellData -> {
-            Integer factureId = cellData.getValue().getIdFacture();
-            if (factureId == null)
-                return new javafx.beans.property.SimpleStringProperty("-");
+        livreurColumn.setCellValueFactory(data ->
+                new javafx.beans.property.SimpleStringProperty(
+                        getNomLivreur(data.getValue().getIdLivreur())
+                )
+        );
+
+        factureColumn.setCellValueFactory(data -> {
+            Integer id = data.getValue().getIdFacture();
             return new javafx.beans.property.SimpleStringProperty(
-                    getNumeroFacture(factureId)
+                    id == null ? "-" : getNumeroFacture(id)
             );
         });
 
+        addActionButtons();
         actualiserTableau();
     }
 
+    // ================= LOAD =================
     @FXML
     public void actualiserTableau() {
-        List<Recompense> list = recompenseService.afficherTous();
-        ObservableList<Recompense> data = FXCollections.observableArrayList(list);
-        recompenseTable.setItems(data);
+        allRecompenses = service.afficherTous();
+        recompenseTable.setItems(FXCollections.observableArrayList(allRecompenses));
         messageLabel.setText("");
     }
 
-    @FXML
-    public void supprimerRecompense() {
-        Recompense selected = recompenseTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            messageLabel.setText("⚠️ Sélectionnez une récompense à supprimer !");
-            return;
-        }
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Supprimer cette récompense ?",
-                ButtonType.YES, ButtonType.NO);
-        confirm.showAndWait().ifPresent(btn -> {
-            if (btn == ButtonType.YES) {
-                recompenseService.supprimer(selected.getIdRecompense());
-                actualiserTableau();
-                messageLabel.setText("✅ Récompense supprimée !");
+    // ================= ACTION BUTTONS =================
+    private void addActionButtons() {
+
+        actionsColumn.setCellFactory(param -> new TableCell<>() {
+
+            private final Button btnEdit = new Button("Modifier");
+            private final Button btnDelete = new Button("Supprimer");
+
+            {
+                btnEdit.setStyle("-fx-background-color:#f59e0b; -fx-text-fill:white;");
+                btnDelete.setStyle("-fx-background-color:#ef4444; -fx-text-fill:white;");
+
+                btnEdit.setOnAction(e -> {
+                    Recompense r = getTableView().getItems().get(getIndex());
+                    modifierRecompense(r);
+                });
+
+                btnDelete.setOnAction(e -> {
+                    Recompense r = getTableView().getItems().get(getIndex());
+                    supprimerRecompense(r);
+                });
+            }
+
+            private final HBox box = new HBox(10, btnEdit, btnDelete);
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : box);
             }
         });
     }
 
-    @FXML
-    public void modifierRecompense() {
-        Recompense selected = recompenseTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            messageLabel.setText("⚠️ Sélectionnez une récompense à modifier !");
-            return;
-        }
+    // ================= DELETE =================
+    private void supprimerRecompense(Recompense r) {
 
-        // Fenêtre popup de modification
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Modifier Récompense");
+        service.supprimer(r.getIdRecompense());
+        actualiserTableau();
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(20));
-        grid.setHgap(10);
-        grid.setVgap(10);
-
-        // Type
-        ComboBox<String> typeField = new ComboBox<>();
-        typeField.getItems().addAll("bonus", "réduction", "cadeau", "prime", "remise");
-        typeField.setValue(selected.getType());
-
-        // Valeur
-        TextField valeurField = new TextField(String.valueOf(selected.getValeur()));
-
-        // Description
-        TextArea descriptionField = new TextArea(selected.getDescription());
-        descriptionField.setPrefHeight(80);
-
-        // Seuil
-        TextField seuilField = new TextField(String.valueOf(selected.getSeuil()));
-
-        // Date
-        DatePicker datePicker = new DatePicker();
-        if (selected.getDateObtention() != null) {
-            datePicker.setValue(selected.getDateObtention()
-                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        }
-
-        // Livreur — chargé automatiquement
-        ComboBox<String> livreurCombo = new ComboBox<>();
-        Map<String, Integer> livreurMap = new HashMap<>();
-        chargerLivreurs(livreurCombo, livreurMap);
-        String nomLivreur = getNomLivreur(selected.getIdLivreur());
-        livreurCombo.setValue(nomLivreur);
-
-        // Facture
-        ComboBox<String> factureCombo = new ComboBox<>();
-        Map<String, Integer> factureMap = new HashMap<>();
-        chargerFactures(factureCombo, factureMap);
-        if (selected.getIdFacture() != null) {
-            factureCombo.setValue(getNumeroFacture(selected.getIdFacture()));
-        }
-
-        // Label message
-        Label msg = new Label();
-
-        // Bouton Sauvegarder
-        Button saveBtn = new Button("Sauvegarder");
-        saveBtn.setOnAction(e -> {
-            try {
-                selected.setType(typeField.getValue());
-                selected.setValeur(Double.parseDouble(valeurField.getText().trim()));
-                selected.setDescription(descriptionField.getText().trim());
-                selected.setSeuil(Integer.parseInt(seuilField.getText().trim()));
-
-                LocalDate date = datePicker.getValue();
-                if (date != null) {
-                    selected.setDateObtention(Date.from(
-                            date.atStartOfDay(ZoneId.systemDefault()).toInstant()
-                    ));
-                }
-
-                String livreurNom = livreurCombo.getValue();
-                if (livreurNom != null) {
-                    selected.setIdLivreur(livreurMap.get(livreurNom));
-                }
-
-                String factureNum = factureCombo.getValue();
-                selected.setIdFacture(
-                        factureNum != null ? factureMap.get(factureNum) : null
-                );
-
-                recompenseService.modifier(selected);
-                actualiserTableau();
-                messageLabel.setText("✅ Récompense modifiée !");
-                popupStage.close();
-
-            } catch (NumberFormatException ex) {
-                msg.setText("⚠️ Valeur et seuil doivent être numériques !");
-                msg.setStyle("-fx-text-fill: red;");
-            } catch (Exception ex) {
-                msg.setText("❌ Erreur : " + ex.getMessage());
-                msg.setStyle("-fx-text-fill: red;");
-            }
-        });
-
-        // Bouton Annuler
-        Button cancelBtn = new Button("Annuler");
-        cancelBtn.setOnAction(e -> popupStage.close());
-
-        // Ajouter composants au grid
-        grid.add(new Label("Type :"),        0, 0); grid.add(typeField,        1, 0);
-        grid.add(new Label("Valeur :"),      0, 1); grid.add(valeurField,      1, 1);
-        grid.add(new Label("Description :"), 0, 2); grid.add(descriptionField, 1, 2);
-        grid.add(new Label("Seuil :"),       0, 3); grid.add(seuilField,       1, 3);
-        grid.add(new Label("Date :"),        0, 4); grid.add(datePicker,       1, 4);
-        grid.add(new Label("Livreur :"),     0, 5); grid.add(livreurCombo,     1, 5);
-        grid.add(new Label("Facture :"),     0, 6); grid.add(factureCombo,     1, 6);
-        grid.add(saveBtn,                    0, 7); grid.add(cancelBtn,        1, 7);
-        grid.add(msg,                        0, 8, 2, 1);
-
-        Scene scene = new Scene(grid, 450, 450);
-        popupStage.setScene(scene);
-        popupStage.show();
+        messageLabel.setText("✅ Supprimé !");
     }
 
-    // ===== Méthodes utilitaires =====
+    // ================= MODIFY (FULL FORM) =================
+    private void modifierRecompense(Recompense r) {
 
-    private void chargerLivreurs(ComboBox<String> combo, Map<String, Integer> map) {
         try {
-            Connection cnx = MyDataBase.getInstance().getConnection();
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(
-                    "SELECT id_utilisateur, nom, prenom FROM utilisateurs WHERE role = 'Livreur'"
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/esprit/recompense-dialog.fxml")
             );
-            while (rs.next()) {
-                String nomComplet = rs.getString("nom") + " " + rs.getString("prenom");
-                int id = rs.getInt("id_utilisateur");
-                combo.getItems().add(nomComplet);
-                map.put(nomComplet, id);
-            }
+
+            Parent root = loader.load();
+
+            RecompenseDialogController controller = loader.getController();
+            controller.setRecompense(r);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modifier Récompense");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            actualiserTableau();
+            messageLabel.setText("✅ Modifié !");
+
         } catch (Exception e) {
-            System.out.println("❌ Erreur livreurs : " + e.getMessage());
+            e.printStackTrace();
+            messageLabel.setText("❌ Erreur modification");
         }
     }
 
-    private void chargerFactures(ComboBox<String> combo, Map<String, Integer> map) {
-        try {
-            Connection cnx = MyDataBase.getInstance().getConnection();
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery("SELECT ID_Facture, numero FROM factures");
-            while (rs.next()) {
-                String numero = rs.getString("numero");
-                int id = rs.getInt("ID_Facture");
-                combo.getItems().add(numero);
-                map.put(numero, id);
-            }
-        } catch (Exception e) {
-            System.out.println("❌ Erreur factures : " + e.getMessage());
+    // ================= SEARCH (TOP BAR) =================
+    @FXML
+    public void rechercher() {
+
+        if (allRecompenses == null) return;
+
+        String text = searchField.getText().toLowerCase().trim();
+
+        if (text.isEmpty()) {
+            recompenseTable.setItems(FXCollections.observableArrayList(allRecompenses));
+            return;
         }
+
+        List<Recompense> filtered = allRecompenses.stream()
+                .filter(r ->
+                        (r.getType() != null && r.getType().toLowerCase().contains(text)) ||
+                                (r.getDescription() != null && r.getDescription().toLowerCase().contains(text))
+                )
+                .collect(Collectors.toList());
+
+        recompenseTable.setItems(FXCollections.observableArrayList(filtered));
     }
 
-    private String getNomLivreur(int livreurId) {
+    // ================= DB HELPERS =================
+    private String getNomLivreur(int idLivreur) {
         try {
             Connection cnx = MyDataBase.getInstance().getConnection();
             PreparedStatement ps = cnx.prepareStatement(
-                    "SELECT nom, prenom FROM utilisateurs WHERE id_utilisateur = ?"
+                    "SELECT nom, prenom FROM utilisateurs WHERE id_utilisateur=?"
             );
-            ps.setInt(1, livreurId);
+            ps.setInt(1, idLivreur);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next())
                 return rs.getString("nom") + " " + rs.getString("prenom");
+
         } catch (Exception e) {
-            System.out.println("❌ Erreur getNomLivreur : " + e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return "Inconnu";
+        return "-";
     }
 
-    private String getNumeroFacture(int factureId) {
+    private String getNumeroFacture(Integer id) {
         try {
             Connection cnx = MyDataBase.getInstance().getConnection();
             PreparedStatement ps = cnx.prepareStatement(
-                    "SELECT numero FROM factures WHERE ID_Facture = ?"
+                    "SELECT numero FROM factures WHERE ID_Facture=?"
             );
-            ps.setInt(1, factureId);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next())
                 return rs.getString("numero");
+
         } catch (Exception e) {
-            System.out.println("❌ Erreur getNumeroFacture : " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return "-";
     }
