@@ -35,7 +35,8 @@ public class RecompenseTableController {
     @FXML private TableColumn<Recompense, Void> actionsColumn;
 
     // ================= UI =================
-    @FXML private TextField searchField;   // ⭐ RECHERCHE EN HAUT
+    @FXML private TextField searchField;
+    @FXML private ComboBox<String> triCombo;
     @FXML private Label messageLabel;
 
     // ================= SERVICE =================
@@ -72,6 +73,15 @@ public class RecompenseTableController {
             );
         });
 
+        // ⭐ TRI OPTIONS
+        triCombo.setItems(FXCollections.observableArrayList(
+                "Valeur décroissante",
+                "Valeur croissante",
+                "Date récente",
+                "Date ancienne",
+                "Type A-Z"
+        ));
+
         addActionButtons();
         actualiserTableau();
     }
@@ -81,7 +91,56 @@ public class RecompenseTableController {
     public void actualiserTableau() {
         allRecompenses = service.afficherTous();
         recompenseTable.setItems(FXCollections.observableArrayList(allRecompenses));
+        triCombo.setValue(null);
         messageLabel.setText("");
+    }
+
+    // ================= TRI =================
+    @FXML
+    public void trier() {
+
+        String choix = triCombo.getValue();
+        if (choix == null) return;
+
+        List<Recompense> sorted = allRecompenses.stream()
+                .sorted((r1, r2) -> {
+                    switch (choix) {
+
+                        case "Valeur décroissante":
+                            return Double.compare(r2.getValeur(), r1.getValeur());
+
+                        case "Valeur croissante":
+                            return Double.compare(r1.getValeur(), r2.getValeur());
+
+                        case "Date récente":
+                            return r2.getDateObtention().compareTo(r1.getDateObtention());
+
+                        case "Date ancienne":
+                            return r1.getDateObtention().compareTo(r2.getDateObtention());
+
+                        case "Type A-Z":
+                            return r1.getType().compareToIgnoreCase(r2.getType());
+
+                        default:
+                            return 0;
+                    }
+                })
+                .collect(Collectors.toList());
+
+        recompenseTable.setItems(FXCollections.observableArrayList(sorted));
+    }
+
+    // ================= TOP 5 =================
+    @FXML
+    public void topRecompenses() {
+
+        List<Recompense> top = allRecompenses.stream()
+                .sorted((r1, r2) -> Double.compare(r2.getValeur(), r1.getValeur()))
+                .limit(5)
+                .collect(Collectors.toList());
+
+        recompenseTable.setItems(FXCollections.observableArrayList(top));
+        messageLabel.setText("🔥 Top 5 récompenses");
     }
 
     // ================= ACTION BUTTONS =================
@@ -119,23 +178,19 @@ public class RecompenseTableController {
 
     // ================= DELETE =================
     private void supprimerRecompense(Recompense r) {
-
         service.supprimer(r.getIdRecompense());
         actualiserTableau();
-
         messageLabel.setText("✅ Supprimé !");
     }
 
-    // ================= MODIFY (FULL FORM) =================
+    // ================= MODIFY =================
     private void modifierRecompense(Recompense r) {
-
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/esprit/recompense-dialog.fxml")
             );
 
             Parent root = loader.load();
-
             RecompenseDialogController controller = loader.getController();
             controller.setRecompense(r);
 
@@ -153,7 +208,7 @@ public class RecompenseTableController {
         }
     }
 
-    // ================= SEARCH (TOP BAR) =================
+    // ================= SEARCH =================
     @FXML
     public void rechercher() {
 

@@ -3,52 +3,80 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.esprit.controllers.RecompenseTableController"
-            prefWidth="900" prefHeight="600"
-            stylesheets="@/recompense-table.css">
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.controllers.FactureTableController"
+      spacing="10"
+      prefWidth="1050"
+      prefHeight="600"
+      stylesheets="@/facture-table.css">
 
-    <children>
+    <!-- TITLE -->
+    <Label text="Gestion des Factures"
+           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 15 0 10 20;"/>
 
-        <Label text="Liste des Récompenses"
-               layoutX="20" layoutY="10"
-               styleClass="label"/>
+    <!-- SEARCH + TRI -->
+    <HBox spacing="10" style="-fx-padding: 10 20 10 20;">
 
+        <!-- SEARCH -->
         <TextField fx:id="searchField"
-                   layoutX="20" layoutY="50"
-                   prefWidth="250"
-                   promptText="Rechercher..."
-                   onKeyReleased="#rechercher"/>
+                   promptText="🔍 Rechercher (numéro, statut, montant...)"
+                   onKeyReleased="#filterFactures"
+                   HBox.hgrow="ALWAYS"/>
 
-        <Button text="Actualiser"
-                layoutX="290" layoutY="50"
-                onAction="#actualiserTableau"/>
+        <!-- TRI -->
+        <ComboBox fx:id="triCombo"
+                  promptText="Trier par..."
+                  onAction="#trierFactures"
+                  prefWidth="220"/>
 
-        <TableView fx:id="recompenseTable"
-                   layoutX="20" layoutY="100"
-                   prefWidth="860" prefHeight="420">
+        <!-- RESET -->
+        <Button text="Reset"
+                onAction="#resetAll"/>
+    </HBox>
 
-            <columns>
+    <!-- TABLE -->
+    <TableView fx:id="factureTable"
+               VBox.vgrow="ALWAYS"
+               prefHeight="550">
 
-                <TableColumn fx:id="typeColumn" text="Type"/>
-                <TableColumn fx:id="valeurColumn" text="Valeur"/>
-                <TableColumn fx:id="descriptionColumn" text="Description"/>
-                <TableColumn fx:id="seuilColumn" text="Seuil"/>
-                <TableColumn fx:id="dateColumn" text="Date"/>
-                <TableColumn fx:id="livreurColumn" text="Livreur"/>
-                <TableColumn fx:id="factureColumn" text="Facture"/>
+        <columns>
 
-                <!-- ⭐ ACTION COLUMN -->
-                <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="180"/>
+            <TableColumn fx:id="numeroColumn"
+                         text="Numéro"
+                         prefWidth="120"/>
 
-            </columns>
+            <TableColumn fx:id="montantHTColumn"
+                         text="HT"
+                         prefWidth="100"/>
 
-        </TableView>
+            <TableColumn fx:id="montantTTCColumn"
+                         text="TTC"
+                         prefWidth="100"/>
 
-        <Label fx:id="messageLabel"
-               layoutX="20"
-               layoutY="540"
-               textFill="red"/>
+            <TableColumn fx:id="tvaColumn"
+                         text="TVA (%)"
+                         prefWidth="80"/>
 
-    </children>
-</AnchorPane>
+            <TableColumn fx:id="statutColumn"
+                         text="Statut"
+                         prefWidth="130"/>
+
+            <TableColumn fx:id="livraisonColumn"
+                         text="Livraison"
+                         prefWidth="120"/>
+
+            <TableColumn fx:id="actionsColumn"
+                         text="Actions"
+                         prefWidth="180"/>
+
+        </columns>
+
+    </TableView>
+
+    <!-- MESSAGE -->
+    <Label fx:id="messageLabel"
+           text=""
+           style="-fx-text-fill: green; -fx-padding: 5 0 0 15;"/>
+
+</VBox>
