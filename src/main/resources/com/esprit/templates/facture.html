@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Facture ${numero}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; font-size: 12px; color: #333; line-height: 1.6; padding: 40px; }
+        .header { border-bottom: 3px solid #667eea; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { color: #667eea; font-size: 28px; margin-bottom: 5px; }
+        .header .subtitle { color: #666; font-size: 14px; }
+        .company-info { text-align: right; margin-bottom: 30px; }
+        .company-info h2 { font-size: 18px; color: #333; margin-bottom: 5px; }
+        .company-info p { font-size: 11px; color: #666; margin: 2px 0; }
+        .invoice-details { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
+        .invoice-details table { width: 100%; border-collapse: collapse; }
+        .invoice-details td { padding: 8px; border: none; }
+        .invoice-details .label { font-weight: bold; color: #667eea; width: 40%; }
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .items-table thead { background: #667eea; color: white; }
+        .items-table th { padding: 12px; text-align: left; font-weight: bold; font-size: 12px; }
+        .items-table td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
+        .text-right { text-align: right; }
+        .totals { width: 40%; margin-left: auto; border-collapse: collapse; }
+        .totals td { padding: 10px; border-bottom: 1px solid #e0e0e0; }
+        .totals .label { font-weight: bold; text-align: left; }
+        .totals .amount { text-align: right; font-weight: bold; }
+        .total-row { background: #667eea; color: white; font-size: 16px; }
+        .total-row td { border-bottom: none; }
+        .footer { margin-top: 50px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center; font-size: 10px; color: #666; }
+        .footer p { margin: 5px 0; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .status-payee { background: #d1e7dd; color: #0f5132; }
+        .status-en-attente { background: #fff3cd; color: #664d03; }
+        .status-annulee { background: #f8d7da; color: #842029; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>FACTURE</h1>
+    <p class="subtitle">${numero}</p>
+</div>
+
+<div class="company-info">
+    <h2>TrackPack</h2>
+    <p>Service de livraison professionnel</p>
+    <p>Adresse : 123 Rue de la Livraison, Tunis</p>
+    <p>Tel : +216 XX XXX XXX</p>
+    <p>Email : contact@trackpack.com</p>
+</div>
+
+<div class="invoice-details">
+    <table>
+        <tr>
+            <td class="label">N&#176; Facture :</td>
+            <td>${numero}</td>
+            <td class="label">Date d'emission :</td>
+            <td>${date}</td>
+        </tr>
+        <tr>
+            <td class="label">Statut :</td>
+            <td><span class="status-badge status-${statut}">${statut}</span></td>
+            <td class="label">ID Livraison :</td>
+            <td>${livraison}</td>
+        </tr>
+    </table>
+</div>
+
+<table class="items-table">
+    <thead>
+    <tr>
+        <th style="width: 60%;">Description</th>
+        <th style="width: 20%; text-align: right;">Qte</th>
+        <th style="width: 20%; text-align: right;">Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <strong>Service de livraison - Livraison #${livraison}</strong><br/>
+            <small style="color: #666;">Livraison standard</small>
+        </td>
+        <td class="text-right">1</td>
+        <td class="text-right">${ht} DT</td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="totals">
+    <tr>
+        <td class="label">Sous-total HT :</td>
+        <td class="amount">${ht} DT</td>
+    </tr>
+    <tr>
+        <td class="label">TVA (${tva}%) :</td>
+        <td class="amount">${tva_montant} DT</td>
+    </tr>
+    <tr class="total-row">
+        <td class="label">TOTAL TTC :</td>
+        <td class="amount">${ttc} DT</td>
+    </tr>
+</table>
+
+<div class="footer">
+    <p><strong>TrackPack</strong> - Service de livraison professionnel</p>
+    <p>Merci de votre confiance !</p>
+    <p style="margin-top: 10px; font-size: 9px;">
+        Cette facture est generee electroniquement et est valable sans signature.
+    </p>
+</div>
+
+</body>
+</html>

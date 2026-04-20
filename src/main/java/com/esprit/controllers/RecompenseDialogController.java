@@ -1,30 +1,27 @@
 package com.esprit.controllers;
 
 import com.esprit.entities.Facture;
+import com.esprit.entities.Livreur;
 import com.esprit.entities.Recompense;
 import com.esprit.services.RecompenseService;
 import com.esprit.utils.MyDataBase;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecompenseDialogController {
 
-    @FXML private TextField typeField;
+    @FXML private ComboBox<String> typeField;
     @FXML private TextField valeurField;
-    @FXML private TextField descriptionField;
+    @FXML private TextArea descriptionField;
     @FXML private TextField seuilField;
-    @FXML private TextField livreurField;
 
-    // ✅ UTILISE TA CLASSE FACTURE
     @FXML private ComboBox<Facture> factureCombo;
+    @FXML private ComboBox<Livreur> livreurComboBox;
 
     private Recompense recompense;
 
@@ -32,24 +29,20 @@ public class RecompenseDialogController {
     @FXML
     public void initialize() {
         loadFacturesFromDB();
+        loadLivreursFromDB();
     }
 
-    // ================= LOAD FACTURES =================
+    // ================= FACTURES =================
     private void loadFacturesFromDB() {
 
         List<Facture> factures = new ArrayList<>();
 
         try {
             Connection cnx = MyDataBase.getInstance().getConnection();
-
-            PreparedStatement ps = cnx.prepareStatement(
-                    "SELECT * FROM factures"
-            );
-
+            PreparedStatement ps = cnx.prepareStatement("SELECT * FROM factures");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
                 Facture f = new Facture(
                         rs.getInt("ID_Facture"),
                         rs.getString("numero"),
@@ -60,52 +53,62 @@ public class RecompenseDialogController {
                         rs.getString("statut"),
                         rs.getInt("livraison_id")
                 );
-
                 factures.add(f);
             }
 
             factureCombo.getItems().setAll(factures);
 
-            // ⭐ AFFICHAGE PROPRE (numero seulement)
-            factureCombo.setCellFactory(lv -> new javafx.scene.control.ListCell<>() {
-                @Override
-                protected void updateItem(Facture item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(empty ? "" : item.getNumero());
-                }
-            });
-
-            factureCombo.setButtonCell(new javafx.scene.control.ListCell<>() {
-                @Override
-                protected void updateItem(Facture item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(empty ? "" : item.getNumero());
-                }
-            });
-
         } catch (Exception e) {
-            System.out.println("❌ Erreur load factures: " + e.getMessage());
+            System.out.println("❌ Erreur factures: " + e.getMessage());
         }
     }
 
-    // ================= SET DATA =================
-    public void setRecompense(Recompense r) {
+    // ================= LIVREURS =================
+    private void loadLivreursFromDB() {
 
+        List<Livreur> livreurs = new ArrayList<>();
+
+        try {
+            Connection cnx = MyDataBase.getInstance().getConnection();
+            PreparedStatement ps = cnx.prepareStatement("SELECT * FROM livreur");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Livreur l = new Livreur(
+                        rs.getInt("id"),
+                        rs.getString("nom")
+                );
+                livreurs.add(l);
+            }
+
+            livreurComboBox.getItems().setAll(livreurs);
+
+        } catch (Exception e) {
+            System.out.println("❌ Erreur livreurs: " + e.getMessage());
+        }
+    }
+
+    // ================= SET RECOMPENSE =================
+    public void setRecompense(Recompense r) {
         this.recompense = r;
 
-        typeField.setText(r.getType());
+        typeField.setValue(r.getType());
         valeurField.setText(String.valueOf(r.getValeur()));
         descriptionField.setText(r.getDescription());
         seuilField.setText(String.valueOf(r.getSeuil()));
-        livreurField.setText(String.valueOf(r.getIdLivreur()));
 
-        // ✅ FIX IMPORTANT : sélection facture correcte
         if (r.getIdFacture() != null) {
-
             factureCombo.getItems().stream()
                     .filter(f -> f.getIdFacture() == r.getIdFacture())
                     .findFirst()
                     .ifPresent(factureCombo::setValue);
+        }
+
+        if (r.getIdLivreur() >0) {
+            livreurComboBox.getItems().stream()
+                    .filter(l -> l.getId() == r.getIdLivreur())
+                    .findFirst()
+                    .ifPresent(livreurComboBox::setValue);
         }
     }
 
@@ -113,20 +116,20 @@ public class RecompenseDialogController {
     @FXML
     public void enregistrer() {
 
-        recompense.setType(typeField.getText());
+        if (recompense == null) {
+            recompense = new Recompense();
+        }
+
+        recompense.setType(typeField.getValue());
         recompense.setValeur(Double.parseDouble(valeurField.getText()));
         recompense.setDescription(descriptionField.getText());
         recompense.setSeuil(Integer.parseInt(seuilField.getText()));
-        recompense.setIdLivreur(Integer.parseInt(livreurField.getText()));
 
-        // ✅ FIX FINAL
-        Facture selected = factureCombo.getValue();
+        Facture f = factureCombo.getValue();
+        recompense.setIdFacture(f != null ? f.getIdFacture() : null);
 
-        if (selected != null) {
-            recompense.setIdFacture(selected.getIdFacture());
-        } else {
-            recompense.setIdFacture(null);
-        }
+        Livreur l = livreurComboBox.getValue();
+        recompense.setIdLivreur(l != null ? l.getId() : null);
 
         new RecompenseService().modifier(recompense);
 

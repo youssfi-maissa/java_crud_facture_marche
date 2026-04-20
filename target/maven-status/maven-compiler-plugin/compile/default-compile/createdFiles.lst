@@ -1,8 +1,9 @@
 com\esprit\controllers\RecompenseStatsController.class
 com\esprit\gui\FactureDialog$2.class
+com\esprit\controllers\AdminDashboardController.class
 com\esprit\controllers\FactureStatsController.class
 com\esprit\controllers\RecompenseDialogController.class
 com\esprit\gui\FactureDialog$1.class
-com\esprit\controllers\RecompenseDialogController$2.class
 com\esprit\controllers\RecompenseTableController$1.class
-com\esprit\controllers\RecompenseDialogController$1.class
+com\esprit\entities\Livreur.class
+com\esprit\services\PdfService.class

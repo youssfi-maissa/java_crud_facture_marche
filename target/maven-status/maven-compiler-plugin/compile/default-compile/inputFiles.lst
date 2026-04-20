@@ -6,11 +6,14 @@ C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\Fa
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\entities\Facture.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\services\RecompenseService.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\FactureController.java
+C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\AdminDashboardController.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\RecompenseStatsController.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\FactureTableController.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\RecompenseDialogController.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\services\FactureService.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com\esprit\controllers\RecompenseTableController.java
+C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\entities\Livreur.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\entities\Recompense.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\Main.java
+C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\services\PdfService.java
 C:\Users\maissa\IdeaProjects\final_prjct\src\main\java\com.esprit\gui\RecompenseDialog.java

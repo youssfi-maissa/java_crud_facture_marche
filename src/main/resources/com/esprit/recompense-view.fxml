@@ -3,60 +3,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/25"
+<VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.esprit.controllers.RecompenseController"
+      fx:controller="com.esprit.controllers.RecompenseDialogController"
       stylesheets="@/recompense.css">
 
-    <!-- TITLE -->
     <Label text="Gestion des Récompenses"
            style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15;"/>
 
-    <!-- CARD -->
     <VBox spacing="12"
           styleClass="card"
           prefWidth="500"
           style="-fx-padding: 20;">
 
-        <Label text="Ajouter Récompense"
+        <Label text="Ajouter / Modifier Récompense"
                style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
-        <!-- TYPE -->
         <ComboBox fx:id="typeField" promptText="Type"/>
-
-        <!-- VALEUR -->
         <TextField fx:id="valeurField" promptText="Valeur"/>
-
-        <!-- DESCRIPTION -->
-        <TextArea fx:id="descriptionField"
-                  promptText="Description"
-                  prefHeight="80"/>
-
-        <!-- SEUIL -->
+        <TextArea fx:id="descriptionField" promptText="Description"/>
         <TextField fx:id="seuilField" promptText="Seuil"/>
 
-        <!-- DATE -->
-        <DatePicker fx:id="dateObtentionPicker"/>
-
-        <!-- FACTURE -->
-        <ComboBox fx:id="FactureComboBox" promptText="Facture"/>
-
-        <!-- LIVREUR -->
+        <ComboBox fx:id="factureCombo" promptText="Facture"/>
         <ComboBox fx:id="livreurComboBox" promptText="Livreur"/>
 
-        <!-- BUTTONS -->
-        <Button text="Ajouter Récompense"
-                onAction="#ajouterRecompense"
+        <Button text="Enregistrer"
+                onAction="#enregistrer"
                 style="-fx-background-color: #2563eb; -fx-text-fill: white;"/>
 
-        <Button text="Afficher Récompenses"
-                onAction="#ouvrirTableViewRecompense"
-                style="-fx-background-color: #374151; -fx-text-fill: white;"/>
-
     </VBox>
-
-    <!-- MESSAGE -->
-    <Label fx:id="messageLabel"
-           style="-fx-padding: 10; -fx-text-fill: green;"/>
 
 </VBox>

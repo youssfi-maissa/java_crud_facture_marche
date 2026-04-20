@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/17"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.esprit.controllers.AdminDashboardController"
+        stylesheets="@admin.css"
+        prefWidth="1100"
+        prefHeight="700">
+
+    <!-- NAVBAR -->
+    <top>
+        <HBox styleClass="navbar" spacing="15">
+            <Label text="PackTrack Admin" styleClass="logo"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField promptText="Search..." prefWidth="200"/>
+            <Label text="Admin"/>
+        </HBox>
+    </top>
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar">
+
+            <Label text="NAVIGATION" styleClass="sidebar-title"/>
+
+            <Label text="Dashboard"
+                   styleClass="menu active"
+                   onMouseClicked="#showDashboard"/>
+
+            <Label text="GESTION" styleClass="sidebar-title"/>
+
+            <!-- FACTURES -->
+            <Label text="Factures" styleClass="menu-parent"/>
+
+            <Label text="  + Ajouter Facture"
+                   styleClass="menu-sub"
+                   onMouseClicked="#showAjoutFacture"/>
+
+            <Label text="  Liste Factures"
+                   styleClass="menu-sub"
+                   onMouseClicked="#showFactures"/>
+
+            <!-- RECOMPENSES -->
+            <Label text="Recompenses" styleClass="menu-parent"/>
+
+            <Label text="  + Ajouter Recompense"
+                   styleClass="menu-sub"
+                   onMouseClicked="#showAjoutRecompense"/>
+
+            <Label text="  Liste Recompenses"
+                   styleClass="menu-sub"
+                   onMouseClicked="#showRecompenses"/>
+
+            <Label text="STATS" styleClass="sidebar-title"/>
+
+            <Label text="Stats Factures"
+                   styleClass="menu"
+                   onMouseClicked="#showFactureStats"/>
+
+            <Label text="Stats Recompenses"
+                   styleClass="menu"
+                   onMouseClicked="#showRecompenseStats"/>
+
+        </VBox>
+    </left>
+
+    <!-- CONTENT -->
+    <center>
+        <VBox fx:id="contentArea"
+              styleClass="content"
+              spacing="20"
+              maxWidth="Infinity"
+              maxHeight="Infinity">
+            <VBox.vgrow>ALWAYS</VBox.vgrow>
+
+            <Label text="Welcome PackTrack Admin" styleClass="title"/>
+            <Label text="Select a section from the menu to get started."
+                   styleClass="subtitle"/>
+
+            <HBox spacing="20">
+
+                <VBox styleClass="card" prefWidth="200">
+                    <Label text="Total Factures" styleClass="card-title"/>
+                    <Label text="--" styleClass="card-value"/>
+                </VBox>
+
+                <VBox styleClass="card" prefWidth="200">
+                    <Label text="Total Recompenses" styleClass="card-title"/>
+                    <Label text="--" styleClass="card-value"/>
+                </VBox>
+
+                <VBox styleClass="card" prefWidth="200">
+                    <Label text="Chiffre affaires" styleClass="card-title"/>
+                    <Label text="-- DT" styleClass="card-value"/>
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
