@@ -61,6 +61,14 @@
             <scope>test</scope>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http45</artifactId>
+            <version>1.38.0</version>
+        </dependency>
+
+
         <!-- ================= OLD iTEXT (tu peux garder mais pas utilisé) ================= -->
         <dependency>
             <groupId>com.itextpdf</groupId>

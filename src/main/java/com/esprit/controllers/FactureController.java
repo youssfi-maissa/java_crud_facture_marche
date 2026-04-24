@@ -2,6 +2,7 @@ package com.esprit.controllers;
 
 import com.esprit.entities.Facture;
 import com.esprit.services.FactureService;
+import com.esprit.services.PdfService;
 import com.esprit.utils.MyDataBase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import java.util.Locale;
 public class FactureController {
 
     private final FactureService factureService = new FactureService();
+    private final PdfService pdfService = new PdfService();
 
     @FXML private TextField numeroField, montantHTField, montantTTCField, tvaField;
     @FXML private ComboBox<String> statutCombo;
@@ -24,7 +26,6 @@ public class FactureController {
 
     private static final String PATTERN = "^FAC-\\d{4}-\\d{3}$";
 
-    // ✅ Facture en cours de modification (null = mode ajout)
     private Facture factureEnEdition = null;
 
     // =====================================================
@@ -44,14 +45,13 @@ public class FactureController {
     }
 
     // =====================================================
-    // ✅ SETTER POUR MODE MODIFICATION
+    // SETTER MODE MODIFICATION
     // =====================================================
     public void setFactureToEdit(Facture facture) {
         this.factureEnEdition = facture;
 
-        // Remplir les champs avec les donnees de la facture
         numeroField.setText(facture.getNumero());
-        numeroField.setEditable(false); // numero non modifiable
+        numeroField.setEditable(false);
 
         montantHTField.setText(String.valueOf(facture.getMontantHT()));
         tvaField.setText(String.valueOf(facture.getTva()));
@@ -61,7 +61,7 @@ public class FactureController {
     }
 
     // =====================================================
-    // ALERT SYSTEM
+    // ALERT
     // =====================================================
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
@@ -76,7 +76,6 @@ public class FactureController {
     // =====================================================
     @FXML
     private void genererNumeroFacture() {
-        // Desactiver en mode modification
         if (factureEnEdition != null) return;
 
         try {
@@ -138,13 +137,12 @@ public class FactureController {
         clearAllErrors();
         boolean hasError = false;
 
-        String numero      = numeroField.getText().trim();
-        String statut      = statutCombo.getValue();
+        String numero       = numeroField.getText().trim();
+        String statut       = statutCombo.getValue();
         Integer idLivraison = cbLivraison.getValue();
-        String htText      = montantHTField.getText().trim();
-        String tvaText     = tvaField.getText().trim();
+        String htText       = montantHTField.getText().trim();
+        String tvaText      = tvaField.getText().trim();
 
-        // Validation numero seulement en mode ajout
         if (factureEnEdition == null) {
             if (numero.isEmpty() || !numero.matches(PATTERN)) {
                 setError(numeroField, "Numero invalide FAC-2026-001");
@@ -184,7 +182,7 @@ public class FactureController {
             float ttc = ht + (ht * tva / 100);
 
             if (factureEnEdition != null) {
-                // ✅ MODE MODIFICATION
+                // MODE MODIFICATION
                 factureEnEdition.setMontantHT(ht);
                 factureEnEdition.setTva(tva);
                 factureEnEdition.setMontantTTC(ttc);
@@ -196,11 +194,10 @@ public class FactureController {
                 showAlert(Alert.AlertType.INFORMATION, "Succes",
                         "Facture modifiee avec succes");
 
-                // Fermer la fenetre apres modification
                 numeroField.getScene().getWindow().hide();
 
             } else {
-                // ✅ MODE AJOUT
+                // MODE AJOUT
                 Facture f = new Facture(numero, ht, ttc, tva, statut, idLivraison);
                 factureService.ajouter(f);
 
@@ -212,6 +209,59 @@ public class FactureController {
 
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
+        }
+    }
+
+    // =====================================================
+    // GENERER ET UPLOADER PDF VERS CLOUDINARY
+    // =====================================================
+    @FXML
+    private void genererPdf() {
+        String numero       = numeroField.getText().trim();
+        String statut       = statutCombo.getValue();
+        Integer idLivraison = cbLivraison.getValue();
+        String htText       = montantHTField.getText().trim();
+        String tvaText      = tvaField.getText().trim();
+
+        // Vérifications minimales avant génération
+        if (numero.isEmpty() || htText.isEmpty() || tvaText.isEmpty()
+                || statut == null || idLivraison == null) {
+            showAlert(Alert.AlertType.WARNING, "Champs manquants",
+                    "Veuillez remplir tous les champs avant de generer le PDF.");
+            return;
+        }
+
+        try {
+            float ht  = Float.parseFloat(htText.replace(',', '.'));
+            float tva = Float.parseFloat(tvaText.replace(',', '.'));
+            float ttc = ht + (ht * tva / 100);
+
+            // Construire la facture avec les données du formulaire
+            Facture f = (factureEnEdition != null)
+                    ? factureEnEdition
+                    : new Facture(numero, ht, ttc, tva, statut, idLivraison);
+
+            // Générer le PDF + upload Cloudinary
+            String cloudinaryUrl = pdfService.generateFacturePdf(f);
+
+            if (cloudinaryUrl != null) {
+                // Sauvegarder l'URL en BDD
+                factureService.savePdfUrl(f.getNumero(), cloudinaryUrl);
+
+                // Afficher l'URL à l'utilisateur
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("PDF uploadé avec succès");
+                alert.setHeaderText("Votre facture est disponible sur Cloudinary");
+                alert.setContentText(cloudinaryUrl);
+                alert.showAndWait();
+
+            } else {
+                showAlert(Alert.AlertType.WARNING, "Upload échoué",
+                        "Le PDF a été généré localement mais l'upload Cloudinary a échoué.");
+            }
+
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur PDF", e.getMessage());
         }
     }
 

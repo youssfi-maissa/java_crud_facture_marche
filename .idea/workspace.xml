@@ -5,22 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="518b2ab7-35a7-4756-b9a2-0c0e3d64307f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/facture_FAC-2026-002.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/facture_FAC-2026-003.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/facture_FAC-2026-005.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/facture_FAC-4040-555.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack/src/main/resources/com/esprit/recompense-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack/src/main/resources/com/esprit/recompense-table-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-table-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/entities/Facture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/entities/Facture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/services/FactureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/services/FactureService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/services/PdfService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/services/PdfService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/AdminDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-dialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-dialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-table-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureTableController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureTableController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureTableController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureTableController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/entities/Facture.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/entities/Facture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/recompense-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/recompense-table-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/services/FactureService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/services/FactureService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/esprit/services/FactureServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/esprit/services/RecompenseServiceTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +199,7 @@
       <workItem from="1776102409829" duration="1920000" />
       <workItem from="1776118403558" duration="2930000" />
       <workItem from="1776121403866" duration="34415000" />
-      <workItem from="1776695691362" duration="13396000" />
+      <workItem from="1776695691362" duration="20427000" />
     </task>
     <servers />
   </component>

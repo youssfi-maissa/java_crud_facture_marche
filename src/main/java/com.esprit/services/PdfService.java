@@ -1,6 +1,9 @@
 package com.esprit.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.esprit.entities.Facture;
+import com.esprit.utils.CloudinaryConfig;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import java.awt.Desktop;
@@ -8,10 +11,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 public class PdfService {
 
-    public void generateFacturePdf(Facture f) {
+    private final Cloudinary cloudinary = CloudinaryConfig.getInstance();
+
+    public String generateFacturePdf(Facture f) {
+        String cloudinaryUrl = null;
+
         try {
             String html = loadTemplate();
 
@@ -26,10 +34,12 @@ public class PdfService {
                     .replace("${ttc}",         String.format("%.2f", f.getMontantTTC()))
                     .replace("${livraison}",   String.valueOf(f.getIdLivraison()));
 
-            // Sauvegarde dans le dossier utilisateur (C:\Users\maissa\)
-            String userHome = System.getProperty("user.home");
-            File pdfFile = new File(userHome, "facture_" + f.getNumero() + ".pdf");
+            // Fichier temporaire local
+            File pdfDir = new File("pdfs");
+            pdfDir.mkdirs(); // crée le dossier s'il n'existe pas
+            File pdfFile = new File(pdfDir, "facture_" + f.getNumero() + ".pdf");
 
+            // Génération du PDF
             try (OutputStream os = new FileOutputStream(pdfFile)) {
                 PdfRendererBuilder builder = new PdfRendererBuilder();
                 builder.withHtmlContent(html, null);
@@ -37,16 +47,31 @@ public class PdfService {
                 builder.run();
             }
 
-            // Ouverture automatique du PDF apres generation
+            System.out.println("PDF généré localement : " + pdfFile.getAbsolutePath());
+
+            // ─── Upload vers Cloudinary ───────────────────────────────────────
+            String publicId = "factures/facture_" + f.getNumero();
+
+            Map<?, ?> result = cloudinary.uploader().upload(pdfFile, ObjectUtils.asMap(
+                    "resource_type", "raw",       // obligatoire pour les PDF
+                    "public_id",     publicId,
+                    "overwrite",     true
+            ));
+
+            cloudinaryUrl = (String) result.get("secure_url");
+            System.out.println("PDF uploadé sur Cloudinary : " + cloudinaryUrl);
+            // ─────────────────────────────────────────────────────────────────
+
+            // Ouverture automatique du PDF local après génération
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(pdfFile);
             }
 
-            System.out.println("PDF genere : " + pdfFile.getAbsolutePath());
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return cloudinaryUrl; // null si l'upload a échoué
     }
 
     private String loadTemplate() throws Exception {

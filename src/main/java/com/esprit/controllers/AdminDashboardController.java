@@ -82,21 +82,38 @@ public class AdminDashboardController {
     // ================= LOADER CENTRAL =================
     private Node loadView(String fxml) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/esprit/" + fxml)
-            );
+            var url = getClass().getResource("/com/esprit/" + fxml);
 
+            System.out.println("=== CHARGEMENT : " + fxml + " ===");
+            System.out.println("URL = " + url);
+
+            if (url == null) {
+                System.out.println("FICHIER INTROUVABLE");
+                Label error = new Label("Fichier introuvable : " + fxml);
+                error.setStyle("-fx-text-fill: red;");
+                return error;
+            }
+
+            FXMLLoader loader = new FXMLLoader(url);
             Node node = loader.load();
+
+            if (node instanceof javafx.scene.layout.Region region) {
+                region.getStylesheets().clear();
+                region.setMaxWidth(Double.MAX_VALUE);
+                region.setMaxHeight(Double.MAX_VALUE);
+                VBox.setVgrow(region, javafx.scene.layout.Priority.ALWAYS);
+            }
 
             return node;
 
         } catch (Exception e) {
-            System.out.println("❌ Erreur chargement FXML : " + fxml);
+            System.out.println("=== ERREUR : " + fxml + " ===");
+            System.out.println("Message     : " + e.getMessage());
+            System.out.println("Cause       : " + (e.getCause() != null ? e.getCause().getMessage() : "null"));
             e.printStackTrace();
 
             Label error = new Label("Erreur de chargement : " + fxml);
             error.setStyle("-fx-text-fill: red; -fx-font-size: 14px;");
             return error;
         }
-    }
-}
+    }}

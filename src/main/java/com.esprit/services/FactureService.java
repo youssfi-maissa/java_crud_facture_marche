@@ -56,6 +56,8 @@ public class FactureService {
         return factures;
     }
 
+
+
     public void modifier(Facture facture) {
         String req = "UPDATE factures SET numero=?, montantHT=?, montantTTC=?, tva=?, statut=?, livraison_id=? WHERE ID_Facture=?";
         try {
@@ -86,6 +88,17 @@ public class FactureService {
         }
     }
 
+    public void savePdfUrl(String numero, String pdfUrl) {
+        try {
+            String sql = "UPDATE factures SET pdf_url = ? WHERE numero = ?";
+            PreparedStatement ps = MyDataBase.getInstance().getConnection().prepareStatement(sql);
+            ps.setString(1, pdfUrl);
+            ps.setString(2, numero);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public Facture rechercherParId(int idFacture) {
         String req = "SELECT * FROM factures WHERE ID_Facture=?";
         try {

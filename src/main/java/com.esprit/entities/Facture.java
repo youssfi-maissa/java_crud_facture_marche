@@ -11,7 +11,10 @@ public class Facture {
     private float tva;
     private String statut;
     private int livraison_id;
+    private String pdfUrl;
 
+    public String getPdfUrl() { return pdfUrl; }
+    public void setPdfUrl(String pdfUrl) { this.pdfUrl = pdfUrl; }
     public Facture() {}
 
     public Facture(String numero, float montantHT, float montantTTC, float tva, String statut, int livraison_id) {
