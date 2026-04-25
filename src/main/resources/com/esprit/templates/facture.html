@@ -29,12 +29,41 @@
         .totals .amount { text-align: right; font-weight: bold; }
         .total-row { background: #667eea; color: white; font-size: 16px; }
         .total-row td { border-bottom: none; }
-        .footer { margin-top: 50px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center; font-size: 10px; color: #666; }
-        .footer p { margin: 5px 0; }
         .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; }
         .status-payee { background: #d1e7dd; color: #0f5132; }
         .status-en-attente { background: #fff3cd; color: #664d03; }
         .status-annulee { background: #f8d7da; color: #842029; }
+        .qr-section { margin-top: 40px; border-top: 2px solid #667eea; padding-top: 20px; display: table; width: 100%; }
+        .qr-left { display: table-cell; vertical-align: middle; width: 120px; }
+        .qr-left img { width: 100px; height: 100px; border: 2px solid #667eea; border-radius: 8px; padding: 4px; }
+        .qr-right { display: table-cell; vertical-align: middle; padding-left: 20px; }
+        .qr-right h3 { color: #667eea; font-size: 13px; margin-bottom: 6px; }
+        .qr-right p { font-size: 10px; color: #555; margin: 2px 0; }
+        .qr-right .url { font-size: 9px; color: #667eea; word-break: break-all; margin-top: 6px; }
+        .verified-badge { display: inline-block; background: #d1e7dd; color: #0f5132; padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: bold; margin-top: 6px; }
+        .signature-section {
+            margin-top: 40px;
+            border-top: 2px dashed #667eea;
+            padding-top: 24px;
+            display: table;
+            width: 100%;
+
+            page-break-before: always;
+            page-break-inside: avoid;
+        }
+        .sig-block-left { display: table-cell; width: 48%; vertical-align: top; }
+        .sig-block-right { display: table-cell; width: 48%; vertical-align: top; text-align: right; }
+        .sig-spacer { display: table-cell; width: 4%; }
+        .sig-label { font-size: 10px; font-weight: bold; color: #667eea; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .sig-image-box { border: 1.5px solid #667eea; border-radius: 8px; width: 240px; height: 90px; background: #f8f9ff; overflow: hidden; }
+        .sig-image-box img { width: 240px; height: 90px; }
+        .sig-name-line { margin-top: 8px; border-top: 1px solid #999; width: 240px; padding-top: 4px; font-size: 10px; color: #555; }
+        .sig-certified { margin-top: 6px; display: inline-block; background: #eef2ff; border: 1px solid #667eea; color: #667eea; padding: 3px 10px; border-radius: 10px; font-size: 9px; font-weight: bold; }
+        .stamp-circle { width: 90px; height: 90px; border: 2.5px solid #667eea; border-radius: 45px; display: inline-block; text-align: center; padding-top: 18px; background: #f8f9ff; }
+        .stamp-inner { font-size: 9px; font-weight: bold; color: #667eea; line-height: 1.5; text-transform: uppercase; }
+        .legal-notice { margin-top: 20px; background: #f8f9fa; border-left: 3px solid #667eea; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 9px; color: #666; line-height: 1.6; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center; font-size: 10px; color: #666; }
+        .footer p { margin: 5px 0; }
     </style>
 </head>
 <body>
@@ -104,11 +133,50 @@
     </tr>
 </table>
 
+<div class="qr-section">
+    <div class="qr-left">
+        <img src="${qr_code_path}" alt="QR Verification"/>
+    </div>
+    <div class="qr-right">
+        <h3>Verification d'authenticite</h3>
+        <p>Scannez ce QR code pour confirmer que cette facture est officielle.</p>
+        <span class="verified-badge">Document Certifie TrackPack</span>
+        <p class="url">${verification_url}</p>
+    </div>
+</div>
+
+<!-- SIGNATURE ELECTRONIQUE -->
+<div class="signature-section">
+    <div class="sig-block-left">
+        <p class="sig-label">Signature Electronique du Client</p>
+        <div class="sig-image-box">
+            <img src="${signature_path}" alt="Signature electronique"/>
+        </div>
+        <p class="sig-name-line">Client / Destinataire — Livraison #${livraison}</p>
+        <span class="sig-certified">Signature electronique validee</span>
+    </div>
+    <div class="sig-spacer"></div>
+    <div class="sig-block-right">
+        <p class="sig-label">Cachet TrackPack</p>
+        <div class="stamp-circle">
+            <div class="stamp-inner">Track<br/>Pack<br/>2026</div>
+        </div>
+        <p style="font-size:10px; color:#555; margin-top:8px;">Direction Generale</p>
+        <p style="font-size:10px; color:#888; font-style:italic;">TrackPack — Service Livraison</p>
+        <p style="font-size:10px; color:#555; margin-top:6px;">Date d'emission : <strong>${date}</strong></p>
+    </div>
+</div>
+
+<div class="legal-notice">
+    <strong>Mentions legales :</strong> La signature electronique apposee ci-dessus a valeur contractuelle.
+    Tout paiement doit etre effectue dans un delai de 30 jours. En cas de litige, le tribunal de Tunis sera saisi.
+</div>
+
 <div class="footer">
     <p><strong>TrackPack</strong> - Service de livraison professionnel</p>
     <p>Merci de votre confiance !</p>
-    <p style="margin-top: 10px; font-size: 9px;">
-        Cette facture est generee electroniquement et est valable sans signature.
+    <p style="margin-top: 10px; font-size: 9px; color: #aaa;">
+        Facture N&#176; ${numero} — generee le ${date} — contact@trackpack.com
     </p>
 </div>
 

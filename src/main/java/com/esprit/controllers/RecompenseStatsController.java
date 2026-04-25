@@ -47,7 +47,7 @@ public class RecompenseStatsController {
             barChart.getData().add(series);
 
         } catch (Exception e) {
-            System.out.println("❌ Erreur stats: " + e.getMessage());
+            System.out.println(" Erreur stats: " + e.getMessage());
         }
     }
 }
