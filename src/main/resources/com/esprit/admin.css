@@ -19,63 +19,78 @@
     -fx-text-fill: #343a40;
 }
 
-/* ───────────────── SIDEBAR (MODIFIÉE) ───────────────── */
+/* ───────────────── SIDEBAR ───────────────── */
 .sidebar {
-    -fx-background-color: #0d6efd;
+    -fx-background-color: linear-gradient(to bottom, #0d6efd, #0b5ed7);
     -fx-padding: 20;
-    -fx-spacing: 8;
-    -fx-pref-width: 210px;
-    -fx-min-height: 600px;
+    -fx-spacing: 10;
+    -fx-pref-width: 230px;
 }
 
+/* TITRES */
 .sidebar-title {
-    -fx-text-fill: #e9ecef;
+    -fx-text-fill: #cbd5e1;
     -fx-font-size: 11px;
     -fx-padding: 10 0 5 5;
 }
 
-/* MENU PRINCIPAL */
-.menu {
+/* MENU BUTTON */
+.menu-btn {
+    -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
     -fx-padding: 10 15;
-    -fx-background-radius: 6;
     -fx-cursor: hand;
-    -fx-pref-width: 180px;
+    -fx-background-radius: 8;
 }
 
-.menu:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-text-fill: white;
+.menu-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.15);
 }
 
-.menu.active {
+/* ACTIVE */
+.menu-btn.active {
     -fx-background-color: white;
     -fx-text-fill: #0d6efd;
 }
 
-/* MENU PARENT */
-.menu-parent {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 15;
-    -fx-pref-width: 180px;
-}
-
-/* SOUS MENU */
-.menu-sub {
+/* SUB MENU */
+.menu-sub-btn {
+    -fx-background-color: transparent;
     -fx-text-fill: #e9ecef;
     -fx-font-size: 13px;
-    -fx-padding: 6 15 6 25;
-    -fx-background-radius: 6;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 25;
     -fx-cursor: hand;
-    -fx-pref-width: 180px;
+    -fx-background-radius: 6;
 }
 
-.menu-sub:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.15);
+.menu-sub-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.2);
     -fx-text-fill: white;
+}
+
+/* TITLED PANE (DROPDOWN) */
+.menu-group {
+    -fx-background-color: transparent;
+}
+
+.titled-pane > .title {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 15;
+}
+
+.titled-pane:expanded > .title {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-background-radius: 8;
+}
+
+.titled-pane > .content {
+    -fx-background-color: transparent;
+    -fx-padding: 5 0 5 0;
 }
 
 /* ───────────────── CONTENT ───────────────── */
@@ -100,8 +115,8 @@
 .card {
     -fx-background-color: white;
     -fx-padding: 20;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 3);
 }
 
 .card-title {

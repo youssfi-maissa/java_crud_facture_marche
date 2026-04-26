@@ -1,26 +1,54 @@
-/* =====================================================
-   BASE STYLE
-===================================================== */
+/* ================= BASE ================= */
 .root {
     -fx-background-color: #f5f7fb;
     -fx-font-family: "Segoe UI";
 }
 
-/* =====================================================
-   CARD STYLE
-===================================================== */
+/* ================= CARD ================= */
 .card {
     -fx-background-color: white;
-    -fx-background-radius: 12;
+    -fx-background-radius: 14;
     -fx-padding: 20;
     -fx-spacing: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 15, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 18, 0, 0, 5);
 }
 
-/* =====================================================
-   TEXTFIELD NORMAL
-===================================================== */
-.text-field {
+/* ================= FORM ================= */
+.form-card {
+    -fx-background-color: white;
+}
+
+/* ================= PREVIEW ================= */
+.preview-card {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #f8fafc);
+}
+
+.preview-box {
+    -fx-background-color: #f1f5f9;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+}
+
+.preview-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563eb;
+}
+
+/* ================= TEXT ================= */
+.title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2937;
+}
+
+.hint {
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 11px;
+}
+
+/* ================= INPUTS ================= */
+.text-field, .combo-box {
     -fx-background-color: white;
     -fx-border-color: #d1d5db;
     -fx-border-radius: 8;
@@ -28,33 +56,21 @@
     -fx-padding: 8;
 }
 
-.text-field:focused {
+.text-field:focused, .combo-box:focused {
     -fx-border-color: #2563eb;
     -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.2), 6, 0, 0, 2);
 }
 
-/* =====================================================
-   COMBOBOX
-===================================================== */
-.combo-box {
-    -fx-background-color: white;
-    -fx-border-color: #d1d5db;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+.readonly-field {
+    -fx-background-color: #e5e7eb;
 }
 
-.combo-box:focused {
-    -fx-border-color: #2563eb;
-}
-
-/* =====================================================
-   BUTTONS
-===================================================== */
+/* ================= BUTTONS ================= */
 .button {
     -fx-background-color: #2563eb;
     -fx-text-fill: white;
-    -fx-background-radius: 10;
-    -fx-padding: 8 15 8 15;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14;
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
@@ -63,48 +79,49 @@
     -fx-background-color: #1d4ed8;
 }
 
-/* =====================================================
-   ERROR STYLE (RED)
-===================================================== */
-.text-field-error {
-    -fx-border-color: #ef4444;
-    -fx-border-width: 2px;
-    -fx-background-color: #fef2f2;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+/* ================= SECONDARY BUTTON ================= */
+.button:disabled {
+    -fx-opacity: 0.6;
 }
 
-/* =====================================================
-   SUCCESS STYLE (GREEN)
-===================================================== */
-.text-field-success {
-    -fx-border-color: #22c55e;
-    -fx-background-color: #f0fdf4;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+/* ================= KPI CARDS ================= */
+
+.kpi-card {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 10, 0, 0, 3);
+    -fx-alignment: center;
+    -fx-pref-width: 140;
 }
 
-/* =====================================================
-   COMBO ERROR STYLE
-===================================================== */
-.combo-error {
-    -fx-border-color: #ef4444;
-    -fx-background-color: #fef2f2;
+.kpi-card:hover {
+    -fx-background-color: #f3f6ff;
 }
 
-/* =====================================================
-   ALERT (POPUP STYLE)
-===================================================== */
-.dialog-pane {
-    -fx-background-color: #ffffff;
+.kpi-card Label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7280;
 }
 
-.dialog-pane .header-panel {
-    -fx-background-color: #2563eb;
-}
-
-.dialog-pane .header-panel .label {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
+.kpi-value {
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.kpi-card.big {
+    -fx-pref-width: 300;
+    -fx-background-color: linear-gradient(to right, #2563eb, #1d4ed8);
+    -fx-alignment: center;
+}
+
+.kpi-card.big Label {
+    -fx-text-fill: white;
+}
+
+.kpi-value-big {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }

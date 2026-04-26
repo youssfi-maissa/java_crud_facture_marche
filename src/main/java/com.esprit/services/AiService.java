@@ -9,13 +9,14 @@ import java.util.Scanner;
 
 public class AiService {
 
-    private static final String API_KEY = "AIzaSyAgxW-is_xABt4HFNwBDtcoG9FoR6BMBK4";
+    private static final String API_KEY = System.getProperty("gemini.api.key",
+            "AIzaSyAF9f5ozP3pBiVkO02CCzBoYR9xwsPAzkQ");
 
-    // ✅ Liste de modèles en fallback automatique
+    //  Liste de modèles en fallback automatique
     private static final String[] MODELES = {
-            "gemini-1.5-flash-latest",   // quota gratuit le plus généreux
-            "gemini-1.5-flash-8b",       // modèle léger, quota élevé
-            "gemini-2.0-flash-lite",     // alternative légère v2
+            "gemini-2.5-flash",          // ✅ Modèle actuel recommandé 2026
+            "gemini-2.5-flash-lite",     // ✅ Fallback léger
+            "gemini-2.0-flash",          // ✅ Fallback stable
     };
 
     public String genererDescriptionRecompense(String nom, int points) {
@@ -25,7 +26,7 @@ public class AiService {
                 + "qui coûte " + points + " points de fidélité. "
                 + "Réponds uniquement avec la description, sans introduction ni guillemets.";
 
-        // ✅ Essaie chaque modèle jusqu'à ce qu'un fonctionne
+        //  Essaie chaque modèle jusqu'à ce qu'un fonctionne
         for (String modele : MODELES) {
             String result = appelerAPI(modele, prompt);
             if (result != null) {
@@ -38,6 +39,8 @@ public class AiService {
 
     private String appelerAPI(String modele, String prompt) {
         try {
+
+            // Correct — v1beta supporte les nouveaux modèles
             String apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/"
                     + modele + ":generateContent?key=" + API_KEY;
 

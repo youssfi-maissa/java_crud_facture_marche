@@ -3,37 +3,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/25"
+<VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.esprit.controllers.FactureController"
-      stylesheets="@/facture.css">
+      stylesheets="@/facture.css"
+      spacing="15"
+      style="-fx-padding: 20;">
 
-    <!-- =====================================================
-         TITLE
-    ===================================================== -->
+    <!-- ================= TITLE ================= -->
     <Label text="Gestion des Factures"
-           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15;"/>
+           style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 
-    <!-- =====================================================
-         FORM CARD
-    ===================================================== -->
-    <VBox spacing="12" styleClass="card" prefWidth="450">
-
-        <Label text="Ajouter Facture"
-               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <!-- ================= FORM ================= -->
+    <VBox spacing="12" styleClass="card">
 
         <!-- NUMERO -->
         <HBox spacing="10">
             <TextField fx:id="numeroField"
                        promptText="FAC-2026-001"
                        prefWidth="250"/>
+
             <Button text="Générer"
                     onAction="#genererNumeroFacture"/>
         </HBox>
 
         <!-- MONTANTS -->
-        <TextField fx:id="montantHTField" promptText="Montant HT"/>
-        <TextField fx:id="tvaField" promptText="TVA %"/>
+        <TextField fx:id="montantHTField"
+                   promptText="Montant HT"/>
+
+        <TextField fx:id="tvaField"
+                   promptText="TVA %"/>
 
         <TextField fx:id="montantTTCField"
                    promptText="TTC calculé"
@@ -41,16 +40,25 @@
                    mouseTransparent="true"
                    style="-fx-background-color: #e5e7eb;"/>
 
-        <!-- COMBO -->
-        <ComboBox fx:id="statutCombo" promptText="Statut"/>
-        <ComboBox fx:id="cbLivraison" promptText="Livraison"/>
+        <!-- COMBOS -->
+        <ComboBox fx:id="statutCombo"
+                  promptText="Statut"/>
 
-        <!-- BUTTONS -->
-        <Button text="Ajouter Facture"
-                onAction="#ajouterFacture"/>
+        <ComboBox fx:id="cbLivraison"
+                  promptText="Livraison ID"/>
 
-        <Button text="Afficher Factures"
-                onAction="#ouvrirTableView"/>
+        <!-- ACTION BUTTONS -->
+        <HBox spacing="10">
+
+            <Button text="Ajouter Facture"
+                    onAction="#ajouterFacture"
+                    styleClass="btn-primary"/>
+
+
+
+        </HBox>
+
+
 
     </VBox>
 
