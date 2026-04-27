@@ -8,17 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack" beforeDir="false" afterPath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack/src/main/resources/com/esprit/recompense-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack/src/main/resources/com/esprit/recompense-table-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdfs/facture_FAC-2026-011.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/facture_FAC-2026-011.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-011.png" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-011.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/services/RecompenseService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureTableController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseStatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseStatsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-stats.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/entities/Recompense.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/services/RecompenseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/services/RecompenseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-table-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/facture.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/facture.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/recompense.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/recompense.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/facture.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/facture.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/recompense.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/recompense.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +196,7 @@
       <workItem from="1776118403558" duration="2930000" />
       <workItem from="1776121403866" duration="34415000" />
       <workItem from="1776695691362" duration="44011000" />
-      <workItem from="1777216674864" duration="18919000" />
+      <workItem from="1777216674864" duration="22108000" />
     </task>
     <servers />
   </component>

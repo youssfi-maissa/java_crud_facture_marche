@@ -212,25 +212,95 @@ public class FactureController {
 
     @FXML
     private void ajouterFacture() {
+
+        clearErrors();
+
+        boolean hasError = false;
+
+        if (numeroField.getText().trim().isEmpty()) {
+            markField(numeroField, true);
+            hasError = true;
+        }
+
+        if (montantHTField.getText().trim().isEmpty()) {
+            markField(montantHTField, true);
+            hasError = true;
+        }
+
+        if (tvaField.getText().trim().isEmpty()) {
+            markField(tvaField, true);
+            hasError = true;
+        }
+
+        if (statutCombo.getValue() == null) {
+            markField(statutCombo, true);
+            hasError = true;
+        }
+
+        if (cbLivraison.getValue() == null) {
+            markField(cbLivraison, true);
+            hasError = true;
+        }
+
+        if (hasError) {
+            showNotification(
+                    NotifType.WARNING,
+                    "Champs obligatoires",
+                    "Veuillez remplir les champs en rouge."
+            );
+            return;
+        }
+
         try {
-            float ht  = Float.parseFloat(montantHTField.getText());
-            float tva = Float.parseFloat(tvaField.getText());
-            float ttc = Float.parseFloat(montantTTCField.getText());
+            float ht  = Float.parseFloat(montantHTField.getText().replace(",", "."));
+            float tva = Float.parseFloat(tvaField.getText().replace(",", "."));
+            float ttc = Float.parseFloat(montantTTCField.getText().replace(",", "."));
 
             Facture f = new Facture(
-                    numeroField.getText(), ht, ttc, tva,
-                    statutCombo.getValue(), cbLivraison.getValue()
+                    numeroField.getText(),
+                    ht,
+                    ttc,
+                    tva,
+                    statutCombo.getValue(),
+                    cbLivraison.getValue()
             );
 
             factureService.ajouter(f);
-            showNotification(NotifType.SUCCESS, "Succès", "Facture ajoutée avec succès.");
+
+            showNotification(
+                    NotifType.SUCCESS,
+                    "Succès",
+                    "Facture ajoutée avec succès."
+            );
+
             clear();
 
-        } catch (Exception e) {
-            showNotification(NotifType.ERROR, "Erreur", e.getMessage());
+        } catch (NumberFormatException e) {
+            showNotification(
+                    NotifType.ERROR,
+                    "Valeur invalide",
+                    "Montant HT ou TVA incorrect."
+            );
         }
     }
 
+    private void markField(Control field, boolean error) {
+        if (error) {
+            if (!field.getStyleClass().contains("error-field")) {
+                field.getStyleClass().add("error-field");
+            }
+        } else {
+            field.getStyleClass().remove("error-field");
+        }
+    }
+
+    private void clearErrors() {
+        markField(numeroField, false);
+        markField(montantHTField, false);
+        markField(tvaField, false);
+        markField(statutCombo, false);
+        markField(cbLivraison, false);
+    }
     @FXML
     private void genererPdf() {
         try {

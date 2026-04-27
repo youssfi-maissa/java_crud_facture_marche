@@ -308,7 +308,24 @@ public class RecompenseDialogController {
             });
         }).start();
     }
+    private void markField(Control field, boolean error) {
+        if (error) {
+            if (!field.getStyleClass().contains("error-field")) {
+                field.getStyleClass().add("error-field");
+            }
+        } else {
+            field.getStyleClass().remove("error-field");
+        }
+    }
 
+    private void clearErrors() {
+        markField(typeField, false);
+        markField(valeurField, false);
+        markField(descriptionField, false);
+        markField(seuilField, false);
+        markField(factureCombo, false);
+        markField(livreurComboBox, false);
+    }
     private void setLabelIA(String message, String color) {
         labelIA.setText(message);
         labelIA.setStyle("-fx-text-fill: " + color + "; -fx-font-style: italic; -fx-font-size: 11px;");
@@ -319,21 +336,54 @@ public class RecompenseDialogController {
     // =====================================================
     @FXML
     public void enregistrer() {
-        if (typeField.getValue() == null || typeField.getValue().isEmpty()) {
-            showNotification(NotifType.WARNING, "Champ manquant", "Veuillez choisir un type de récompense.");
-            return;
+
+        clearErrors();
+
+        boolean hasError = false;
+
+        if (typeField.getValue() == null || typeField.getValue().trim().isEmpty()) {
+            markField(typeField, true);
+            hasError = true;
         }
+
         if (valeurField.getText().trim().isEmpty()) {
-            showNotification(NotifType.WARNING, "Champ manquant", "Veuillez saisir une valeur.");
-            return;
+            markField(valeurField, true);
+            hasError = true;
         }
+
+        if (descriptionField.getText().trim().isEmpty()) {
+            markField(descriptionField, true);
+            hasError = true;
+        }
+
         if (seuilField.getText().trim().isEmpty()) {
-            showNotification(NotifType.WARNING, "Champ manquant", "Veuillez saisir un seuil.");
+            markField(seuilField, true);
+            hasError = true;
+        }
+
+        if (factureCombo.getValue() == null) {
+            markField(factureCombo, true);
+            hasError = true;
+        }
+
+        if (livreurComboBox.getValue() == null) {
+            markField(livreurComboBox, true);
+            hasError = true;
+        }
+
+        if (hasError) {
+            showNotification(
+                    NotifType.WARNING,
+                    "Champs obligatoires",
+                    "Veuillez remplir les champs en rouge."
+            );
             return;
         }
 
         try {
-            if (recompense == null) recompense = new Recompense();
+
+            if (recompense == null)
+                recompense = new Recompense();
 
             recompense.setType(typeField.getValue());
             recompense.setValeur(Double.parseDouble(valeurField.getText().trim()));
@@ -341,10 +391,10 @@ public class RecompenseDialogController {
             recompense.setSeuil(Integer.parseInt(seuilField.getText().trim()));
 
             Facture f = factureCombo.getValue();
-            recompense.setIdFacture(f != null ? f.getIdFacture() : null);
+            recompense.setIdFacture(f.getIdFacture());
 
             Livreur l = livreurComboBox.getValue();
-            recompense.setIdLivreur(l != null ? l.getId() : 0);
+            recompense.setIdLivreur(l.getId());
 
             if (recompense.getDateObtention() == null) {
                 recompense.setDateObtention(new java.util.Date());
@@ -353,42 +403,34 @@ public class RecompenseDialogController {
             RecompenseService service = new RecompenseService();
 
             if (recompense.getIdRecompense() == 0) {
-                // ── MODE AJOUT ──
                 service.ajouter(recompense);
 
-                // Notification succès + info mail si livreur sélectionné
                 showNotification(
                         NotifType.SUCCESS,
                         "Récompense ajoutée",
-                        "Type : " + recompense.getType() + "  |  Valeur : " + recompense.getValeur()
+                        "Ajout effectué avec succès."
                 );
 
-                if (l != null) {
-                    // Légère pause pour que le toast SUCCESS apparaisse d'abord
-                    PauseTransition delay = new PauseTransition(Duration.millis(600));
-                    delay.setOnFinished(ev ->
-                            showNotification(
-                                    NotifType.INFO,
-                                    "Mail en cours d'envoi",
-                                    "Un e-mail de notification est envoyé à " + l.getNom() + "."
-                            )
-                    );
-                    delay.play();
-                }
-
             } else {
-                // ── MODE MODIFICATION ──
                 service.modifier(recompense);
+
                 showNotification(
                         NotifType.SUCCESS,
                         "Récompense modifiée",
-                        "Type : " + recompense.getType() + "  |  Valeur : " + recompense.getValeur()
+                        "Modification effectuée avec succès."
                 );
             }
 
         } catch (NumberFormatException e) {
-            showNotification(NotifType.ERROR, "Erreur de saisie",
-                    "Vérifiez les champs numériques (valeur, seuil).");
+
+            markField(valeurField, true);
+            markField(seuilField, true);
+
+            showNotification(
+                    NotifType.ERROR,
+                    "Valeurs invalides",
+                    "Valeur et seuil doivent être numériques."
+            );
         }
     }
 }

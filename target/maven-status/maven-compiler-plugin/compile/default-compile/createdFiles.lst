@@ -25,7 +25,6 @@ com\esprit\controllers\RecompenseDialogController$3.class
 com\esprit\Main.class
 com\esprit\controllers\FactureController$1.class
 com\esprit\services\QrCodeService.class
-com\esprit\controllers\FactureTableController$2.class
 com\esprit\controllers\AdminDashboardController.class
 com\esprit\controllers\FactureTableController.class
 com\esprit\services\AiService.class

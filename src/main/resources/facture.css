@@ -94,7 +94,12 @@
     -fx-alignment: center;
     -fx-pref-width: 140;
 }
-
+.error-field {
+    -fx-border-color: #e53935;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+    -fx-background-color: #fff5f5;
+}
 .kpi-card:hover {
     -fx-background-color: #f3f6ff;
 }
