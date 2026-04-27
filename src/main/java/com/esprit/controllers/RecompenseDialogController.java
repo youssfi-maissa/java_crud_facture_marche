@@ -99,7 +99,7 @@ public class RecompenseDialogController {
                         "-fx-border-width: 0.5;" +
                         "-fx-border-radius: 8;" +
                         "-fx-background-radius: 8;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.13), 14, 0, 0, 4);"
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.13), 14, 0, 4);"
         );
         root.setPrefWidth(320);
 
@@ -137,21 +137,13 @@ public class RecompenseDialogController {
         );
 
         factureCombo.setConverter(new StringConverter<Facture>() {
-            @Override
-            public String toString(Facture f) {
-                return f == null ? "" : f.getNumero();
-            }
-            @Override
-            public Facture fromString(String s) { return null; }
+            @Override public String toString(Facture f) { return f == null ? "" : f.getNumero(); }
+            @Override public Facture fromString(String s) { return null; }
         });
 
         livreurComboBox.setConverter(new StringConverter<Livreur>() {
-            @Override
-            public String toString(Livreur l) {
-                return l == null ? "" : l.getNom();
-            }
-            @Override
-            public Livreur fromString(String s) { return null; }
+            @Override public String toString(Livreur l) { return l == null ? "" : l.getNom(); }
+            @Override public Livreur fromString(String s) { return null; }
         });
 
         loadFacturesFromDB();
@@ -159,9 +151,7 @@ public class RecompenseDialogController {
 
         factureCombo.setOnAction(e -> {
             Facture selected = factureCombo.getValue();
-            if (selected != null) {
-                chargerLivreurParFacture(selected.getIdLivraison());
-            }
+            if (selected != null) chargerLivreurParFacture(selected.getIdLivraison());
         });
     }
 
@@ -174,9 +164,8 @@ public class RecompenseDialogController {
             Connection cnx = MyDataBase.getInstance().getConnection();
             PreparedStatement ps = cnx.prepareStatement("SELECT * FROM factures");
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
-                Facture f = new Facture(
+                factures.add(new Facture(
                         rs.getInt("ID_Facture"),
                         rs.getString("numero"),
                         rs.getTimestamp("dateEmission"),
@@ -185,11 +174,9 @@ public class RecompenseDialogController {
                         rs.getFloat("tva"),
                         rs.getString("statut"),
                         rs.getInt("livraison_id")
-                );
-                factures.add(f);
+                ));
             }
             factureCombo.getItems().setAll(factures);
-
         } catch (Exception e) {
             System.out.println("Erreur factures: " + e.getMessage());
         }
@@ -211,7 +198,6 @@ public class RecompenseDialogController {
                 livreurs.add(new Livreur(rs.getInt("id"), rs.getString("nom")));
             }
             livreurComboBox.getItems().setAll(livreurs);
-
         } catch (Exception e) {
             System.out.println("Erreur livreurs: " + e.getMessage());
         }
@@ -249,7 +235,6 @@ public class RecompenseDialogController {
                     livreurComboBox.setValue(nouveau);
                 }
             }
-
         } catch (Exception e) {
             System.out.println("Erreur auto-livreur: " + e.getMessage());
         }
@@ -260,7 +245,6 @@ public class RecompenseDialogController {
     // =====================================================
     public void setRecompense(Recompense r) {
         this.recompense = r;
-
         typeField.setValue(r.getType());
         valeurField.setText(String.valueOf(r.getValeur()));
         descriptionField.setText(r.getDescription());
@@ -314,7 +298,6 @@ public class RecompenseDialogController {
         setLabelIA("Gemini génère la description...", "#667eea");
 
         final int pointsFinal = pointsInt;
-
         new Thread(() -> {
             String description = aiService.genererDescriptionRecompense(nom, pointsFinal);
             Platform.runLater(() -> {
@@ -332,7 +315,7 @@ public class RecompenseDialogController {
     }
 
     // =====================================================
-    // SAVE
+    // SAVE — avec notification mail
     // =====================================================
     @FXML
     public void enregistrer() {
@@ -350,7 +333,6 @@ public class RecompenseDialogController {
         }
 
         try {
-            // ✅ FIX 1 : si recompense est null → mode AJOUT (nouvel objet sans ID = 0)
             if (recompense == null) recompense = new Recompense();
 
             recompense.setType(typeField.getValue());
@@ -364,22 +346,38 @@ public class RecompenseDialogController {
             Livreur l = livreurComboBox.getValue();
             recompense.setIdLivreur(l != null ? l.getId() : 0);
 
-            // ✅ FIX 2 : dateObtention ne doit jamais être null
             if (recompense.getDateObtention() == null) {
                 recompense.setDateObtention(new java.util.Date());
             }
 
             RecompenseService service = new RecompenseService();
 
-            // ✅ FIX 3 : AJOUT si id==0, MODIFICATION si id>0
             if (recompense.getIdRecompense() == 0) {
+                // ── MODE AJOUT ──
                 service.ajouter(recompense);
+
+                // Notification succès + info mail si livreur sélectionné
                 showNotification(
                         NotifType.SUCCESS,
                         "Récompense ajoutée",
                         "Type : " + recompense.getType() + "  |  Valeur : " + recompense.getValeur()
                 );
+
+                if (l != null) {
+                    // Légère pause pour que le toast SUCCESS apparaisse d'abord
+                    PauseTransition delay = new PauseTransition(Duration.millis(600));
+                    delay.setOnFinished(ev ->
+                            showNotification(
+                                    NotifType.INFO,
+                                    "Mail en cours d'envoi",
+                                    "Un e-mail de notification est envoyé à " + l.getNom() + "."
+                            )
+                    );
+                    delay.play();
+                }
+
             } else {
+                // ── MODE MODIFICATION ──
                 service.modifier(recompense);
                 showNotification(
                         NotifType.SUCCESS,
@@ -387,9 +385,6 @@ public class RecompenseDialogController {
                         "Type : " + recompense.getType() + "  |  Valeur : " + recompense.getValeur()
                 );
             }
-
-            // Récupérer le stage AVANT le délai
-            Stage stage = (Stage) typeField.getScene().getWindow();
 
         } catch (NumberFormatException e) {
             showNotification(NotifType.ERROR, "Erreur de saisie",

@@ -8,38 +8,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack" beforeDir="false" afterPath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack/src/main/resources/com/esprit/recompense-table-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Esprit-PIDEV-3A42-2526-PackTrack/src/main/resources/com/esprit/recompense-table-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdfs/facture_FAC-2026-004.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/facture_FAC-2026-004.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdfs/facture_FAC-2026-007.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/facture_FAC-2026-007.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-004.png" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-004.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-007.png" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-007.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/services/AiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/services/AiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/services/RecompenseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.esprit/services/RecompenseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/FactureTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdfs/facture_FAC-2026-011.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/facture_FAC-2026-011.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-011.png" beforeDir="false" afterPath="$PROJECT_DIR$/pdfs/qrcodes/qr_FAC-2026-011.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.esprit/services/RecompenseService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/admin-dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/admin-dashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/facture-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/facture.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/facture.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/MainApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureTableController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/FactureTableController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/controllers/RecompenseTableController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/facture-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/facture-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/gui/FactureDialog$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/gui/FactureDialog$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/gui/FactureDialog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/gui/FactureGUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/gui/RecompenseDialog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/services/FactureService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/services/RecompenseService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/utils/MyDataBase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/facture.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/facture.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseStatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/controllers/RecompenseStatsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/esprit/recompense-stats.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/entities/Recompense.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/esprit/services/RecompenseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/esprit/services/RecompenseService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,44 +44,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FactureGUI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FactureRecompenseGUI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FactureServiceTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.RecompenseServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RecompenseServiceTest.testAjouter.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RecompenseServiceTest.testModifier.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RecompenseServiceTest.testRechercherParId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RecompenseServiceTest.testSupprimer.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.final_prjct [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.final_prjct [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.final_prjct [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.final_prjct [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.final_prjct [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;facturebranche&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/maissa/IdeaProjects/final_prjct/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3483965&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FactureGUI.executor": "Run",
+    "Application.FactureRecompenseGUI.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.MainApp.executor": "Run",
+    "JUnit.FactureServiceTest.executor": "Debug",
+    "JUnit.RecompenseServiceTest.executor": "Run",
+    "JUnit.RecompenseServiceTest.testAjouter.executor": "Run",
+    "JUnit.RecompenseServiceTest.testModifier.executor": "Run",
+    "JUnit.RecompenseServiceTest.testRechercherParId.executor": "Run",
+    "JUnit.RecompenseServiceTest.testSupprimer.executor": "Run",
+    "Maven.final_prjct [clean].executor": "Run",
+    "Maven.final_prjct [install].executor": "Run",
+    "Maven.final_prjct [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.final_prjct [org.apache.maven.plugins:maven-clean-plugin:3.2.0:help].executor": "Run",
+    "Maven.final_prjct [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
+    "Maven.final_prjct [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "facturebranche",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/maissa/IdeaProjects/final_prjct/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3483965",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.esprit.services" />
@@ -218,7 +198,7 @@
       <workItem from="1776118403558" duration="2930000" />
       <workItem from="1776121403866" duration="34415000" />
       <workItem from="1776695691362" duration="44011000" />
-      <workItem from="1777216674864" duration="10082000" />
+      <workItem from="1777216674864" duration="18919000" />
     </task>
     <servers />
   </component>
@@ -232,6 +212,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com.esprit/MainApp.java</url>
           <line>90</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com.esprit/services/RecompenseService.java</url>
+          <line>201</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

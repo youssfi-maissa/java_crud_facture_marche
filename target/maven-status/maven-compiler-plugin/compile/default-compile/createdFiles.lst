@@ -15,6 +15,7 @@ com\esprit\entities\Livreur.class
 com\esprit\entities\Recompense.class
 com\esprit\services\PdfService.class
 com\esprit\services\RecompenseService.class
+com\esprit\services\MailService$1.class
 com\esprit\controllers\RecompenseStatsController.class
 com\esprit\gui\FactureDialog.class
 com\esprit\services\FactureService.class
@@ -34,6 +35,7 @@ com\esprit\controllers\RecompenseDialogController.class
 com\esprit\services\CloudinaryService.class
 com\esprit\MainApp.class
 com\esprit\controllers\RecompenseTableController$1.class
+com\esprit\services\MailService.class
 com\esprit\services\PredictionService.class
 com\esprit\controllers\FactureTableController$NotifType.class
 com\esprit\controllers\RecompenseDialogController$1.class
